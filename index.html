@@ -1,0 +1,1241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>exponent — embedded marketing pod</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --indigo: #2a1ff5;
+    --indigo-deep: #1a0fc8;
+    --indigo-soft: #4a3dff;
+    --cream: #f6f1e6;
+    --cream-dim: #e8ddc4;
+    --ink: #0a0530;
+    --glow: #ffd9b8;
+
+    --serif: "Instrument Serif", "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "DM Sans", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--indigo); color: var(--cream); }
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--cream); color: var(--indigo); }
+
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 56px; }
+
+  /* ──────── NAV ──────── */
+  nav.top {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 22px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: linear-gradient(to bottom, rgba(42,31,245,0.85), rgba(42,31,245,0.0));
+  }
+  nav.top .brand {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    display: flex; align-items: baseline; gap: 2px;
+  }
+  nav.top .brand sup {
+    font-size: 9px;
+    transform: translateY(-2px);
+    opacity: 0.7;
+  }
+  nav.top ul {
+    list-style: none;
+    display: flex; gap: 36px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  nav.top ul a {
+    opacity: 0.75;
+    transition: opacity .15s;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  }
+  nav.top ul a:hover { opacity: 1; border-bottom-color: var(--cream); }
+  nav.top .cta {
+    font-family: var(--mono); font-size: 12px;
+    padding: 8px 16px;
+    border: 1px solid var(--cream);
+    border-radius: 999px;
+    transition: background .15s, color .15s;
+  }
+  nav.top .cta:hover { background: var(--cream); color: var(--indigo); }
+
+  /* ──────── HERO ──────── */
+  section.hero {
+    min-height: 100vh;
+    position: relative;
+    padding: 140px 56px 80px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 1200px; height: 1200px;
+    left: 50%; top: 35%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.55) 18%, rgba(74,61,255,0) 55%);
+    filter: blur(30px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: var(--cream);
+    opacity: 0.85;
+    display: flex; align-items: center; gap: 14px;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cream); }
+  .hero-eyebrow .sep { opacity: 0.4; }
+
+  .wordmark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: -0.04em;
+    line-height: 0.82;
+    font-size: clamp(120px, 22vw, 360px);
+    position: relative;
+    z-index: 2;
+    margin: 60px 0 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .wordmark .word { display: inline-block; }
+  .wordmark .exp {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.32em;
+    line-height: 1;
+    transform: translateY(0.18em);
+    margin-left: 0.02em;
+    color: var(--cream);
+    opacity: 0.92;
+    letter-spacing: -0.04em;
+  }
+  .wordmark .exp .infty {
+    display: inline-block;
+    transform: translateY(-0.04em);
+  }
+
+  .hero-bottom {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px;
+    position: relative; z-index: 2;
+    margin-top: 40px;
+  }
+  .hero-lede {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(28px, 2.4vw, 38px);
+    line-height: 1.15;
+    color: var(--cream);
+    max-width: 620px;
+    text-wrap: pretty;
+  }
+  .hero-lede em { font-style: normal; opacity: 0.78; }
+
+  .hero-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--cream);
+    opacity: 0.8;
+    display: flex; flex-direction: column; gap: 18px;
+    align-self: end;
+  }
+  .hero-meta .row { display: flex; gap: 24px; }
+  .hero-meta .row span:first-child { opacity: 0.55; min-width: 80px; }
+
+  /* ASCII curve in hero corner */
+  .ascii-curve {
+    position: absolute;
+    right: 56px; top: 100px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.05;
+    color: var(--cream);
+    opacity: 0.42;
+    white-space: pre;
+    z-index: 1;
+    pointer-events: none;
+    text-align: right;
+  }
+  .ascii-curve .lit { opacity: 1; }
+  .ascii-curve .med { opacity: 0.7; }
+
+  /* ASCII symbol field watermark for manifesto */
+  .ascii-field {
+    position: absolute;
+    inset: 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--cream);
+    opacity: 0.06;
+    white-space: pre;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+  }
+
+  /* Pod card ASCII glyph */
+  .pod-card .glyph {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.05;
+    white-space: pre;
+    color: var(--cream);
+    opacity: 0.85;
+    margin: 4px 0 0;
+  }
+  .pod-card .glyph .dim { opacity: 0.45; }
+
+  /* ASCII corner brackets for CTA */
+  .ascii-corners {
+    position: absolute;
+    inset: 80px 56px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .ascii-corners span {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--cream);
+    opacity: 0.55;
+    line-height: 1;
+    white-space: pre;
+  }
+  .ascii-corners .tl { top: 0; left: 0; }
+  .ascii-corners .tr { top: 0; right: 0; }
+  .ascii-corners .bl { bottom: 0; left: 0; }
+  .ascii-corners .br { bottom: 0; right: 0; }
+
+  /* Big ASCII wordmark for footer */
+  pre.ascii-wordmark {
+    font-family: var(--mono);
+    font-size: clamp(8px, 0.95vw, 14px);
+    line-height: 1.05;
+    color: var(--cream);
+    white-space: pre;
+    margin: 0 0 32px;
+    letter-spacing: 0;
+    opacity: 0.95;
+    overflow: hidden;
+  }
+
+  /* Inline ASCII rules between sections */
+  .ascii-rule {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--cream);
+    opacity: 0.32;
+    white-space: nowrap;
+    padding: 0 56px;
+    overflow: hidden;
+    letter-spacing: 0.6em;
+    line-height: 1;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  /* ──────── SECTION HEADERS ──────── */
+  section { padding: 120px 0; position: relative; }
+  .sec-head {
+    display: grid; grid-template-columns: 80px 1fr 1fr;
+    gap: 40px;
+    align-items: baseline;
+    margin-bottom: 80px;
+    padding: 0 56px;
+  }
+  .sec-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+  }
+  .sec-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(48px, 5.6vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    text-wrap: balance;
+  }
+
+  /* ──────── MANIFESTO ──────── */
+  .manifesto {
+    border-top: 1px solid rgba(246,241,230,0.18);
+    padding: 80px 0 140px;
+    position: relative;
+    overflow: hidden;
+  }
+  .manifesto > .sec-head, .manifesto > .manifesto-body { position: relative; z-index: 1; }
+  .manifesto-body {
+    padding: 0 56px;
+    display: grid; grid-template-columns: 80px 1fr 1fr; gap: 40px;
+  }
+  .manifesto-body .lede {
+    grid-column: 2 / 3;
+    font-family: var(--serif);
+    font-size: clamp(36px, 4vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    color: var(--cream);
+    text-wrap: pretty;
+  }
+  .manifesto-body .lede em { font-style: italic; opacity: 0.78; }
+  .manifesto-body .lede .x { font-family: var(--mono); font-style: normal; opacity: 0.9; padding: 0 0.1em; }
+  .manifesto-body .side {
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--cream);
+    opacity: 0.78;
+    align-self: end;
+    max-width: 360px;
+  }
+
+  /* ──────── SERVICES ──────── */
+  .services {
+    border-top: 1px solid rgba(246,241,230,0.18);
+  }
+  .svc-grid {
+    padding: 0 56px;
+  }
+  .svc-row {
+    display: grid;
+    grid-template-columns: 80px 280px 1fr 200px;
+    gap: 40px;
+    padding: 32px 0;
+    border-top: 1px solid rgba(246,241,230,0.14);
+    align-items: start;
+    transition: background .2s;
+  }
+  .svc-row:last-child { border-bottom: 1px solid rgba(246,241,230,0.14); }
+  .svc-row:hover { background: rgba(246,241,230,0.04); }
+  .svc-row .sym {
+    font-family: var(--mono);
+    font-size: 22px;
+    color: var(--cream);
+    opacity: 0.85;
+    letter-spacing: 0;
+  }
+  .svc-row .name {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 32px;
+    line-height: 1.0;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .svc-row .desc {
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--cream);
+    opacity: 0.78;
+    max-width: 520px;
+    text-wrap: pretty;
+  }
+  .svc-row .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    text-align: right;
+    padding-top: 8px;
+  }
+
+  /* ──────── POD ──────── */
+  .pod {
+    border-top: 1px solid rgba(246,241,230,0.18);
+  }
+  .pod-grid {
+    padding: 0 56px;
+    display: grid; grid-template-columns: 80px 320px 320px 1fr; gap: 32px;
+    align-items: stretch;
+  }
+  .pod-card {
+    border: 1px solid rgba(246,241,230,0.22);
+    padding: 22px 24px 20px;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .pod-card:hover { border-color: var(--cream); }
+  .pod-card .corner {
+    position: absolute; top: 12px; right: 14px;
+    font-family: var(--mono); font-size: 11px;
+    opacity: 0.5;
+    letter-spacing: 0.04em;
+  }
+  .pod-card .role {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .pod-card .who {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 40px;
+    line-height: 0.95;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+  .pod-card .blurb {
+    font-size: 13px;
+    line-height: 1.5;
+    opacity: 0.75;
+    text-wrap: pretty;
+  }
+
+  /* ──────── CURVE / ASCII ART ──────── */
+  .curve-section {
+    border-top: 1px solid rgba(246,241,230,0.18);
+    padding: 120px 0;
+    overflow: hidden;
+  }
+  .curve-wrap {
+    padding: 0 56px;
+    display: grid; grid-template-columns: 80px 1fr; gap: 40px;
+  }
+  .curve-wrap .label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+  }
+  pre.ascii-art {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.05;
+    color: var(--cream);
+    white-space: pre;
+    margin: 0;
+    overflow: hidden;
+  }
+  pre.ascii-art .dim { opacity: 0.32; }
+  pre.ascii-art .med { opacity: 0.6; }
+  pre.ascii-art .lit { opacity: 0.95; }
+  .curve-caption {
+    margin-top: 40px;
+    padding-left: 120px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.2;
+    max-width: 720px;
+    color: var(--cream);
+    text-wrap: pretty;
+  }
+
+  /* ──────── TRUSTED BY (marquee) ──────── */
+  .trusted { border-top: 1px solid rgba(246,241,230,0.18); padding-bottom: 140px; }
+  .marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 48s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    padding-right: 80px;
+    flex-shrink: 0;
+  }
+  .logo {
+    color: var(--cream);
+    opacity: 0.78;
+    white-space: nowrap;
+    transition: opacity .2s;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+  .logo:hover { opacity: 1; }
+  .logo-usdt0      { font-family: var(--mono); font-size: 32px; letter-spacing: -0.02em; font-weight: 500; }
+  .logo-aatm       { font-family: var(--serif); font-style: italic; font-size: 36px; display: inline-flex; align-items: center; gap: 10px; }
+  .logo-aatm .aatm-dot { font-size: 18px; opacity: 0.7; }
+  .logo-story      { font-family: var(--sans); font-weight: 600; font-size: 30px; letter-spacing: 0.18em; }
+  .logo-poseidon   { font-family: var(--serif); font-size: 36px; letter-spacing: -0.02em; }
+  .logo-superrare  { font-family: var(--mono); font-size: 26px; letter-spacing: 0.18em; font-weight: 400; }
+  .logo-digbee     { font-family: var(--sans); font-weight: 600; font-size: 30px; letter-spacing: -0.01em; }
+  .logo-wachsman   { font-family: var(--serif); font-style: italic; font-size: 34px; }
+  .logo-uof          { font-family: var(--mono); font-size: 30px; letter-spacing: 0.32em; font-weight: 500; }
+  .logo-layerzero    { font-family: var(--sans); font-weight: 600; font-size: 28px; letter-spacing: -0.01em; display: inline-flex; align-items: baseline; gap: 4px; }
+  .logo-layerzero .lz-zero { font-family: var(--mono); opacity: 0.7; }
+  .logo-sky          { font-family: var(--serif); font-style: italic; font-size: 44px; letter-spacing: -0.02em; }
+  .logo-reddit       { font-family: var(--sans); font-weight: 700; font-size: 30px; letter-spacing: -0.03em; }
+  .logo-reddit .r-dot{ display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: currentColor; margin-right: 6px; opacity: 0.8; vertical-align: 4px; }
+  .logo-facebook     { font-family: var(--serif); font-size: 32px; letter-spacing: -0.01em; }
+  .logo-mktg         { font-family: var(--mono); font-size: 26px; letter-spacing: 0.5em; font-weight: 500; padding-right: 0.5em; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ──────── SELECTS (legacy) ──────── */
+  .selects { border-top: 1px solid rgba(246,241,230,0.18); }
+  .selects-grid {
+    padding: 0 56px;
+    display: grid; grid-template-columns: 80px 1fr;
+    gap: 40px;
+  }
+  .selects-list {
+    display: flex; flex-direction: column;
+  }
+  .select-row {
+    display: grid;
+    grid-template-columns: 1fr 200px 180px 80px;
+    gap: 40px;
+    padding: 26px 0;
+    border-top: 1px solid rgba(246,241,230,0.14);
+    align-items: baseline;
+    transition: padding-left .2s, color .2s;
+    cursor: pointer;
+  }
+  .select-row:last-child { border-bottom: 1px solid rgba(246,241,230,0.14); }
+  .select-row:hover { padding-left: 12px; }
+  .select-row .client {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .select-row .scope {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    opacity: 0.7;
+  }
+  .select-row .scope::before {
+    content: "✦ ";
+    opacity: 0.7;
+    margin-right: 4px;
+  }
+  .select-row .industry {
+    font-family: var(--sans);
+    font-size: 13px;
+    opacity: 0.65;
+  }
+  .select-row .arrow {
+    font-family: var(--mono);
+    font-size: 18px;
+    opacity: 0.5;
+    text-align: right;
+  }
+
+  /* ──────── ENGAGEMENT ──────── */
+  .engage { border-top: 1px solid rgba(246,241,230,0.18); }
+  .engage-grid {
+    padding: 0 56px;
+    display: grid; grid-template-columns: 80px 1fr 1fr; gap: 40px;
+    align-items: start;
+  }
+  .engage-card {
+    border: 1px solid rgba(246,241,230,0.22);
+    padding: 36px;
+    display: flex; flex-direction: column; gap: 24px;
+    position: relative;
+  }
+  .engage-card .tier {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .engage-card .price {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 72px;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .engage-card .price small {
+    display: block;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+  .engage-card ul {
+    list-style: none;
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .engage-card ul li:before {
+    content: "+ ";
+    font-family: var(--mono);
+    opacity: 0.55;
+  }
+  .engage-card .marker {
+    position: absolute; top: 18px; right: 22px;
+    font-family: var(--mono); font-size: 14px;
+    opacity: 0.55;
+  }
+
+  /* ──────── CTA / CONTACT ──────── */
+  .cta-section {
+    border-top: 1px solid rgba(246,241,230,0.18);
+    padding: 160px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute;
+    width: 900px; height: 900px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.4) 18%, rgba(74,61,255,0) 55%);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .cta-section h2 {
+    position: relative; z-index: 1;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(56px, 7vw, 120px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    max-width: 900px;
+    margin: 0 auto 40px;
+    text-wrap: balance;
+  }
+  .cta-section .symbols {
+    position: relative; z-index: 1;
+    font-family: var(--mono);
+    font-size: 16px;
+    letter-spacing: 0.6em;
+    opacity: 0.55;
+    margin-bottom: 36px;
+  }
+  .cta-section .btn-row {
+    position: relative; z-index: 1;
+    display: inline-flex; gap: 14px;
+    align-items: center;
+  }
+  .btn-prim, .btn-sec {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    padding: 16px 28px;
+    border-radius: 999px;
+    transition: all .15s;
+    display: inline-flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    border: 1px solid var(--cream);
+  }
+  .btn-prim { background: var(--cream); color: var(--indigo); }
+  .btn-prim:hover { background: transparent; color: var(--cream); }
+  .btn-sec { background: transparent; color: var(--cream); }
+  .btn-sec:hover { background: var(--cream); color: var(--indigo); }
+
+  /* ──────── FOOTER ──────── */
+  footer {
+    border-top: 1px solid rgba(246,241,230,0.18);
+    padding: 60px 56px 40px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+  footer .row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 40px;
+    margin-bottom: 80px;
+  }
+  footer h4 {
+    font-family: var(--mono); font-weight: 400;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    opacity: 0.55; margin-bottom: 14px;
+  }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  footer ul a { opacity: 0.85; }
+  footer ul a:hover { opacity: 1; text-decoration: underline; }
+  footer .baseline {
+    display: flex; justify-content: space-between; align-items: end;
+    border-top: 1px solid rgba(246,241,230,0.14);
+    padding-top: 24px;
+    font-size: 11px;
+    opacity: 0.65;
+  }
+  footer .big-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 120px;
+    line-height: 0.9;
+    color: var(--cream);
+    opacity: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  footer .big-mark sup {
+    font-size: 0.32em;
+    vertical-align: top;
+    margin-left: 0.04em;
+    line-height: 1;
+    opacity: 0.9;
+  }
+
+  /* ──────── PLAY/PAUSE BUTTON (decorative) ──────── */
+  .pause-fab {
+    position: fixed; right: 28px; bottom: 28px; z-index: 60;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(10,5,48,0.55);
+    border: 1px solid rgba(246,241,230,0.35);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--cream);
+    backdrop-filter: blur(8px);
+  }
+  .pause-fab:hover { background: var(--cream); color: var(--indigo); }
+
+  /* ──────── RESPONSIVE ──────── */
+  @media (max-width: 900px) {
+    .wrap, nav.top, .sec-head, .manifesto-body, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section, footer { padding-left: 24px; padding-right: 24px; }
+    nav.top ul { display: none; }
+    .sec-head { grid-template-columns: 1fr; }
+    .manifesto-body, .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
+    .svc-row { grid-template-columns: 30px 1fr; }
+    .svc-row .desc, .svc-row .tag { grid-column: 1 / -1; }
+    .select-row { grid-template-columns: 1fr; gap: 8px; }
+    .hero-bottom { grid-template-columns: 1fr; }
+    footer .row { grid-template-columns: 1fr 1fr; }
+    .ascii-curve { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ────────────────  NAV  ──────────────── -->
+<nav class="top" data-screen-label="Nav">
+  <a class="brand" href="#top">exponent<sup>^</sup></a>
+  <ul>
+    <li><a href="#work">work</a></li>
+    <li><a href="#pod">pod</a></li>
+    <li><a href="#selects">selects</a></li>
+    <li><a href="#engage">engage</a></li>
+  </ul>
+  <a class="cta" href="#engage">start a conversation →</a>
+</nav>
+
+<!-- ────────────────  HERO  ──────────────── -->
+<section class="hero" id="top" data-screen-label="Hero">
+  <div class="hero-glow"></div>
+
+  <pre class="ascii-curve" aria-hidden="true"><span class="lit">                                       ^</span>
+<span class="lit">                                     ^^</span>
+<span class="lit">                                    ^^</span>
+<span class="lit">                                  ^x^</span>
+<span class="med">                                ^xx^</span>
+<span class="med">                              ^xxx+</span>
+<span class="med">                            ^xxx++</span>
+<span class="med">                         ^xxxx++</span>
+<span class="med">                      ^xxxxx+++</span>
+<span class="med">                  ^xxxxxxx++++</span>
+              xxxxxxxxx+++++
+        +++++xxxxxxxxx+++++
+   +++++++++++++xxxx++++++
++++++++++++++++++++++++
+++++++++++++++++++
++++++++++++</pre>
+
+  <div class="hero-eyebrow">
+    <span class="dot"></span>
+    <span>est. 2026 / ny + global</span>
+    <span class="sep">×</span>
+    <span>now booking q3</span>
+  </div>
+
+  <h1 class="wordmark">
+    <span class="word">exponent</span><span class="exp">^<span class="infty">∞</span></span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-lede">
+      An <em>embedded marketing pod.</em> Senior strategy and hands-on execution from a small, high-context team — multiplied across the surface of your business.
+    </p>
+    <div class="hero-meta">
+      <div class="row"><span>founders</span><span>Emma Joelle + LDF</span></div>
+      <div class="row"><span>model</span><span>Embedded pod, monthly retainer</span></div>
+      <div class="row"><span>focus</span><span>AI · crypto · culture · climate</span></div>
+      <div class="row"><span>scope</span><span>Strategy → execution, fewer vendors</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────  MANIFESTO  ──────────────── -->
+<div class="ascii-rule" aria-hidden="true">× ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ +</div>
+<section class="manifesto" id="why">
+<pre class="ascii-field" aria-hidden="true">x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ +
++ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x
+^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^
+x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ +
++ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x
+^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^
+x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ +
++ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x
+^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^</pre>
+  <div class="sec-head">
+    <span class="sec-num">/ 01</span>
+    <span class="sec-label">Premise</span>
+    <span></span>
+  </div>
+  <div class="manifesto-body">
+    <p class="lede">
+      Marketing leadership <span class="x">×</span> execution capacity, in one small team. The output of an agency, the context of an in-house hire, the velocity of a founder.
+    </p>
+    <div class="side">
+      <p>Exponent replaces the typical stack of fractional CMO + content shop + ghostwriter + comms freelancer with a single embedded pod. Fewer handoffs. More ownership. Strategy and craft set by the same hands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────  SERVICES  ──────────────── -->
+<section class="services" id="work">
+  <div class="sec-head">
+    <span class="sec-num">/ 02</span>
+    <span class="sec-label">Capabilities</span>
+    <h2 class="sec-title">What the pod owns end&#8209;to&#8209;end.</h2>
+  </div>
+  <div class="svc-grid">
+
+    <div class="svc-row">
+      <span class="sym">×</span>
+      <span class="name">Strategy &amp; positioning</span>
+      <p class="desc">A living plan across content, campaigns, partnerships, and founder comms — built around your business goals, not a deliverables checklist. We set the narrative and the operating rhythm.</p>
+      <span class="tag">Quarterly + ongoing</span>
+    </div>
+
+    <div class="svc-row">
+      <span class="sym">^</span>
+      <span class="name">Campaigns &amp; launches</span>
+      <p class="desc">Launches, integrations, milestones, and data stories turned into multi&#8209;surface moments — paced through the year so traction compounds instead of evaporating after one tweet.</p>
+      <span class="tag">Per launch</span>
+    </div>
+
+    <div class="svc-row">
+      <span class="sym">+</span>
+      <span class="name">Content &amp; editorial</span>
+      <p class="desc">Long&#8209;form essays, technical posts, newsletters, scripts, decks, and social. Written by senior operators who actually understand your category — not outsourced to a content farm.</p>
+      <span class="tag">Weekly cadence</span>
+    </div>
+
+    <div class="svc-row">
+      <span class="sym">×</span>
+      <span class="name">Founder &amp; exec positioning</span>
+      <p class="desc">Distinct lanes for macro vision, operator credibility, and product insight. Podcasts, talks, op&#8209;eds, social, and the unsexy ghostwriting work that makes any of it consistent.</p>
+      <span class="tag">Ongoing</span>
+    </div>
+
+    <div class="svc-row">
+      <span class="sym">^</span>
+      <span class="name">Partner &amp; product marketing</span>
+      <p class="desc">Integrations and product launches packaged so partners, press, and the market can repeat them back. Co&#8209;marketing systems instead of one&#8209;off announcements.</p>
+      <span class="tag">Per integration</span>
+    </div>
+
+    <div class="svc-row">
+      <span class="sym">+</span>
+      <span class="name">PR coordination</span>
+      <p class="desc">Sourcing, vetting, and managing the right PR partner — and keeping press strategy aligned with the rest of the marketing narrative. PR scoped separately, but never disconnected.</p>
+      <span class="tag">Oversight</span>
+    </div>
+
+    <div class="svc-row">
+      <span class="sym">×</span>
+      <span class="name">Event marketing &amp; capture</span>
+      <p class="desc">End&#8209;to&#8209;end event runs: campaign content, sponsor deliverables, on&#8209;the&#8209;ground capture, session rollout, recap materials. Built so each event compounds the next.</p>
+      <span class="tag">Per event</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ────────────────  POD  ──────────────── -->
+<section class="pod" id="pod">
+  <div class="sec-head">
+    <span class="sec-num">/ 03</span>
+    <span class="sec-label">The Pod</span>
+    <h2 class="sec-title">Two principals. Zero handoffs.</h2>
+  </div>
+  <div class="pod-grid">
+    <div></div>
+
+    <div class="pod-card">
+      <span class="corner">01 ^</span>
+      <span class="role">Principal</span>
+      <div class="who">Emma Joelle.</div>
+<pre class="glyph" aria-hidden="true">      ^
+     ^ ^
+    ^^^^^
+   ^^xxx^^
+  <span class="dim">+</span>^xxxxx^<span class="dim">+</span>
+ <span class="dim">++</span>xxxxxxx<span class="dim">++</span></pre>
+      <p class="blurb">Strategy, positioning, founder voice. External point of contact for partners and press.</p>
+    </div>
+
+    <div class="pod-card">
+      <span class="corner">02 +</span>
+      <span class="role">Principal</span>
+      <div class="who">LDF.</div>
+<pre class="glyph" aria-hidden="true">+--+--+--+
+|  |  |  |
++--+--+--+
+|  |  |  |
++--+--+--+
+<span class="dim">|  |  |  |</span></pre>
+      <p class="blurb">Production, content systems, partner ops. Drives weekly execution and workflow.</p>
+    </div>
+
+    <div></div>
+  </div>
+</section>
+
+<!-- ────────────────  CURVE / ASCII  ──────────────── -->
+<section class="curve-section" id="why-it-works">
+  <div class="sec-head">
+    <span class="sec-num">/ 04</span>
+    <span class="sec-label">The Math</span>
+    <h2 class="sec-title">Output that compounds.</h2>
+  </div>
+  <div class="curve-wrap">
+    <span class="label">fig.01</span>
+    <div>
+<pre class="ascii-art" aria-hidden="true"><span class="lit">          ^</span>                                                                                       <span class="lit">^^</span>
+<span class="lit">  output  |</span>                                                                                  <span class="lit">^^</span>
+          <span class="med">|</span>                                                                              <span class="lit">^x^</span>
+          <span class="med">|</span>                                                                          <span class="lit">^xx^</span>
+          <span class="med">|</span>                                                                       <span class="lit">^xxx+</span>
+          <span class="med">|</span>                                                                    <span class="lit">xxx++</span>
+          <span class="med">|</span>                                                                <span class="med">xxx+++</span>
+          <span class="med">|</span>                                                            <span class="med">xxxx++++</span>
+          <span class="med">|</span>                                                       <span class="med">xxxxx+++++</span>
+          <span class="med">|</span>                                                 <span class="med">xxxxxxx+++++</span>
+          <span class="med">|</span>                                          <span class="dim">xxxxxxxx++++++</span>
+          <span class="med">|</span>                                  <span class="dim">xxxxxxxxxx+++++++</span>
+          <span class="med">|</span>                       <span class="dim">+++++xxxxxxxxxxx++++++++</span>
+          <span class="med">|</span>         <span class="dim">+++++++++++++++xxxxxxxx++++++++++++</span>
+          <span class="med">|</span><span class="dim">++++++++++++++++++++++++++++++++++++++++++++++</span>
+          <span class="med">+</span><span class="dim">───────────────────────────────────────────────────────────────────►</span>
+           <span class="dim">month 01</span>      <span class="dim">month 03</span>      <span class="dim">month 06</span>      <span class="dim">month 09</span>      <span class="dim">month 12</span>      <span class="dim">time</span>
+
+           <span class="med">+ + +</span>   foundation     baseline cadence, voice, systems
+           <span class="med">x x x</span>   acceleration   launches stack, partners notice, press picks up
+           <span class="lit">^ ^ ^</span>   compounding    each moment makes the next cheaper to make</pre>
+    </div>
+  </div>
+  <p class="curve-caption">
+    The model only works because nothing is starting from zero. Every launch borrows context from the last one. Every essay seeds the next campaign. The exponent is the team you don't have to brief again.
+  </p>
+</section>
+
+<!-- ────────────────  TRUSTED BY  ──────────────── -->
+<section class="trusted" id="selects" data-screen-label="Trusted by">
+  <div class="sec-head">
+    <span class="sec-num">/ 05</span>
+    <span class="sec-label">Trusted by</span>
+    <h2 class="sec-title">We&rsquo;ve worked with companies of all shapes &amp; sizes.</h2>
+  </div>
+
+  <div class="marquee" aria-hidden="false">
+    <div class="marquee-track">
+      <!-- track 1 -->
+      <div class="marquee-group">
+        <span class="logo logo-usdt0">USDT0</span>
+        <span class="logo logo-layerzero">LayerZero<span class="lz-zero">°</span></span>
+        <span class="logo logo-aatm"><span class="aatm-dot">◉</span> Artist &amp; the Machine</span>
+        <span class="logo logo-sky">sky.</span>
+        <span class="logo logo-story">STORY</span>
+        <span class="logo logo-reddit"><span class="r-dot"></span>reddit</span>
+        <span class="logo logo-poseidon">poseidon<span style="opacity:.55">.ai</span></span>
+        <span class="logo logo-facebook">facebook.</span>
+        <span class="logo logo-superrare">SUPERRARE</span>
+        <span class="logo logo-mktg">MKTG</span>
+        <span class="logo logo-digbee">Digbee<span style="opacity:.5"> ESG</span></span>
+        <span class="logo logo-wachsman">Wachsman</span>
+        <span class="logo logo-uof">UOF</span>
+      </div>
+      <!-- duplicate for seamless loop -->
+      <div class="marquee-group" aria-hidden="true">
+        <span class="logo logo-usdt0">USDT0</span>
+        <span class="logo logo-layerzero">LayerZero<span class="lz-zero">°</span></span>
+        <span class="logo logo-aatm"><span class="aatm-dot">◉</span> Artist &amp; the Machine</span>
+        <span class="logo logo-sky">sky.</span>
+        <span class="logo logo-story">STORY</span>
+        <span class="logo logo-reddit"><span class="r-dot"></span>reddit</span>
+        <span class="logo logo-poseidon">poseidon<span style="opacity:.55">.ai</span></span>
+        <span class="logo logo-facebook">facebook.</span>
+        <span class="logo logo-superrare">SUPERRARE</span>
+        <span class="logo logo-mktg">MKTG</span>
+        <span class="logo logo-digbee">Digbee<span style="opacity:.5"> ESG</span></span>
+        <span class="logo logo-wachsman">Wachsman</span>
+        <span class="logo logo-uof">UOF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────  ENGAGE  ──────────────── -->
+<section class="engage" id="engage">
+  <div class="sec-head">
+    <span class="sec-num">/ 06</span>
+    <span class="sec-label">Engage</span>
+    <h2 class="sec-title">If the timing's right.</h2>
+  </div>
+  <div class="engage-grid">
+    <div></div>
+    <p style="grid-column: 2 / -1; font-family: var(--serif); font-style: italic; font-size: 28px; line-height: 1.25; max-width: 760px; color: var(--cream); text-wrap: pretty;">
+      We work with a small number of teams at a time so each one gets the full pod. Tell us what you're building and we'll come back with a scoped proposal.
+    </p>
+  </div>
+</section>
+
+<!-- ────────────────  CTA  ──────────────── -->
+<div class="ascii-rule" aria-hidden="true">+ × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ +</div>
+<section class="cta-section" id="contact" data-screen-label="CTA">
+  <div class="cta-glow"></div>
+  <div class="ascii-corners" aria-hidden="true">
+    <span class="tl">+─────</span>
+    <span class="tr">─────+</span>
+    <span class="bl">+─────</span>
+    <span class="br">─────+</span>
+  </div>
+  <div class="symbols">×&nbsp;&nbsp;^&nbsp;&nbsp;+&nbsp;&nbsp;×&nbsp;&nbsp;^&nbsp;&nbsp;+</div>
+  <h2><em>Tell us what you're building.</em></h2>
+  <div class="btn-row">
+    <a class="btn-prim" href="mailto:hello@exponent.studio">hello@exponent.studio →</a>
+    <a class="btn-sec" href="#selects">see the work</a>
+  </div>
+</section>
+
+<!-- ────────────────  FOOTER  ──────────────── -->
+<footer>
+<pre class="ascii-wordmark" aria-hidden="true"> ___ __  __ ___    ___   _  _  ___  _  _ _____ 
+| __|\ \/ /| _ \  / _ \ | \| || __|| \| ||_   _|
+| _|  >  < |  _/ | (_) || .‘ || _| | .‘ |  | |  
+|___|/_/\_\|_|    \___/ |_|\_||___||_|\_|  |_|  </pre>
+  <div class="row">
+    <div>
+      <h4>Pod</h4>
+      <ul>
+        <li><a href="#work">Capabilities</a></li>
+        <li><a href="#pod">Principals</a></li>
+        <li><a href="#engage">Engage</a></li>
+        <li><a href="#selects">Selects</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@exponent.studio">hello@exponent.studio</a></li>
+        <li><a href="mailto:emma@exponent.studio">emma@exponent.studio</a></li>
+        <li><a href="mailto:ldf@exponent.studio">ldf@exponent.studio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="#">x.com/exponent</a></li>
+        <li><a href="#">linkedin/exponent</a></li>
+        <li><a href="#">instagram/exponent</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Index</h4>
+      <ul>
+        <li>est. 2026</li>
+        <li>new york · global</li>
+        <li>est. via aurient + ldf</li>
+        <li>booking q3 2026</li>
+      </ul>
+    </div>
+  </div>
+  <div class="baseline">
+    <span>© 2026 exponent — independent marketing, multiplied.</span>
+    <span>x · ^ · +</span>
+  </div>
+</footer>
+
+<div class="pause-fab" id="pauseFab" title="pause animations" aria-label="pause">
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+    <rect x="3" y="2" width="3" height="12" rx="0.5"/>
+    <rect x="10" y="2" width="3" height="12" rx="0.5"/>
+  </svg>
+</div>
+
+<!-- Tweaks defaults block -->
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "wordmark": "exponent^∞",
+    "palette": ["#2a1ff5", "#f6f1e6", "#ffd9b8"],
+    "accentMode": "warm-glow",
+    "showAsciiCurve": true,
+    "heroEmphasis": "italic-serif",
+    "density": "regular"
+  }/*EDITMODE-END*/;
+</script>
+
+<!-- React + Babel for Tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<div id="tweaks-root"></div>
+
+<script type="text/babel">
+  const PALETTES = {
+    "indigo-cream": ["#2a1ff5", "#f6f1e6", "#ffd9b8"],
+    "ink-cream":    ["#0a0530", "#f6f1e6", "#ffb38a"],
+    "violet-glow":  ["#5b3bff", "#fbf3e0", "#ffd0b3"],
+    "cream-indigo": ["#f6f1e6", "#2a1ff5", "#2a1ff5"]
+  };
+
+  function applyTweaks(t) {
+    const r = document.documentElement;
+    const [bg, fg, glow] = t.palette || PALETTES["indigo-cream"];
+    r.style.setProperty("--indigo", bg);
+    r.style.setProperty("--cream", fg);
+    r.style.setProperty("--glow", glow);
+
+    // wordmark variant
+    const wm = document.querySelector(".wordmark");
+    if (wm) {
+      const variants = {
+        "exponent^∞": ['exponent', '^', '∞'],
+        "exponent^x": ['exponent', '^', 'x'],
+        "exponent^n": ['exponent', '^', 'n'],
+        "e^xponent":  ['e', '^', 'xponent'],
+        "x^+":        ['x', '^', '+'],
+      };
+      const v = variants[t.wordmark] || variants["exponent^∞"];
+      wm.innerHTML = `<span class="word">${v[0]}</span><span class="exp">${v[1]}<span class="infty">${v[2]}</span></span>`;
+    }
+
+    // ascii curve toggle
+    const curve = document.querySelector(".ascii-curve");
+    if (curve) curve.style.display = t.showAsciiCurve ? "" : "none";
+
+    // hero emphasis
+    const lede = document.querySelector(".hero-lede");
+    if (lede) {
+      if (t.heroEmphasis === "italic-serif") {
+        lede.style.fontFamily = "var(--serif)";
+        lede.style.fontStyle = "italic";
+      } else if (t.heroEmphasis === "mono") {
+        lede.style.fontFamily = "var(--mono)";
+        lede.style.fontStyle = "normal";
+        lede.style.fontSize = "20px";
+        lede.style.lineHeight = "1.45";
+      } else {
+        lede.style.fontFamily = "var(--sans)";
+        lede.style.fontStyle = "normal";
+      }
+    }
+
+    // density
+    document.body.style.fontSize = t.density === "compact" ? "15px" : t.density === "comfy" ? "17px" : "16px";
+  }
+
+  function App() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    React.useEffect(() => { applyTweaks(t); }, [t]);
+
+    return (
+      <TweaksPanel title="Tweaks" defaultOpen={false}>
+        <TweakSection label="Wordmark" />
+        <TweakSelect label="Style" value={t.wordmark}
+          options={["exponent^∞", "exponent^x", "exponent^n", "e^xponent", "x^+"]}
+          onChange={(v) => setTweak('wordmark', v)} />
+        <TweakRadio label="Hero lede" value={t.heroEmphasis}
+          options={["italic-serif", "sans", "mono"]}
+          onChange={(v) => setTweak('heroEmphasis', v)} />
+
+        <TweakSection label="Palette" />
+        <TweakColor label="Scheme" value={t.palette}
+          options={[
+            ["#2a1ff5", "#f6f1e6", "#ffd9b8"],
+            ["#0a0530", "#f6f1e6", "#ffb38a"],
+            ["#5b3bff", "#fbf3e0", "#ffd0b3"],
+            ["#f6f1e6", "#2a1ff5", "#2a1ff5"],
+          ]}
+          onChange={(v) => setTweak('palette', v)} />
+
+        <TweakSection label="Detail" />
+        <TweakToggle label="ASCII curve in hero" value={t.showAsciiCurve}
+          onChange={(v) => setTweak('showAsciiCurve', v)} />
+        <TweakRadio label="Density" value={t.density}
+          options={["compact", "regular", "comfy"]}
+          onChange={(v) => setTweak('density', v)} />
+      </TweaksPanel>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+
+  // initial apply on load (so static wordmark gets variant)
+  document.addEventListener("DOMContentLoaded", () => applyTweaks(TWEAK_DEFAULTS));
+  // also call immediately, since DOMContentLoaded may have already fired
+  applyTweaks(TWEAK_DEFAULTS);
+</script>
+
+</body>
+</html>
