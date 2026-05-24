@@ -241,19 +241,6 @@
   .ascii-corners .bl { bottom: 0; left: 0; }
   .ascii-corners .br { bottom: 0; right: 0; }
 
-  /* Big ASCII wordmark for footer */
-  pre.ascii-wordmark {
-    font-family: var(--mono);
-    font-size: clamp(8px, 0.95vw, 14px);
-    line-height: 1.05;
-    color: var(--cream);
-    white-space: pre;
-    margin: 0 0 32px;
-    letter-spacing: 0;
-    opacity: 0.95;
-    overflow: hidden;
-  }
-
   /* Inline ASCII rules between sections */
   .ascii-rule {
     font-family: var(--mono);
@@ -688,55 +675,9 @@
   .btn-sec { background: transparent; color: var(--cream); }
   .btn-sec:hover { background: var(--cream); color: var(--indigo); }
 
-  /* ──────── FOOTER ──────── */
-  footer {
-    border-top: 1px solid rgba(246,241,230,0.18);
-    padding: 60px 56px 40px;
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    opacity: 0.7;
-  }
-  footer .row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 40px;
-    margin-bottom: 80px;
-  }
-  footer h4 {
-    font-family: var(--mono); font-weight: 400;
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    opacity: 0.55; margin-bottom: 14px;
-  }
-  footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  footer ul a { opacity: 0.85; }
-  footer ul a:hover { opacity: 1; text-decoration: underline; }
-  footer .baseline {
-    display: flex; justify-content: space-between; align-items: end;
-    border-top: 1px solid rgba(246,241,230,0.14);
-    padding-top: 24px;
-    font-size: 11px;
-    opacity: 0.65;
-  }
-  footer .big-mark {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 120px;
-    line-height: 0.9;
-    color: var(--cream);
-    opacity: 1;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
-  }
-  footer .big-mark sup {
-    font-size: 0.32em;
-    vertical-align: top;
-    margin-left: 0.04em;
-    line-height: 1;
-    opacity: 0.9;
-  }
-
   /* ──────── RESPONSIVE ──────── */
   @media (max-width: 900px) {
-    .wrap, nav.top, .sec-head, .manifesto-body, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section, footer { padding-left: 24px; padding-right: 24px; }
+    .wrap, nav.top, .sec-head, .manifesto-body, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section { padding-left: 24px; padding-right: 24px; }
     nav.top ul { display: none; }
     .sec-head { grid-template-columns: 1fr; }
     .manifesto-body, .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
@@ -744,7 +685,6 @@
     .svc-row .desc, .svc-row .tag { grid-column: 1 / -1; }
     .select-row { grid-template-columns: 1fr; gap: 8px; }
     .hero-bottom { grid-template-columns: 1fr; }
-    footer .row { grid-template-columns: 1fr 1fr; }
     .ascii-curve { display: none; }
   }
 </style>
@@ -1052,54 +992,6 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
     <a class="btn-sec" href="#selects">see the work</a>
   </div>
 </section>
-
-<!-- ────────────────  FOOTER  ──────────────── -->
-<footer>
-<pre class="ascii-wordmark" aria-hidden="true"> ___ __  __ ___    ___   _  _  ___  _  _ _____ 
-| __|\ \/ /| _ \  / _ \ | \| || __|| \| ||_   _|
-| _|  >  < |  _/ | (_) || .‘ || _| | .‘ |  | |  
-|___|/_/\_\|_|    \___/ |_|\_||___||_|\_|  |_|  </pre>
-  <div class="row">
-    <div>
-      <h4>Pod</h4>
-      <ul>
-        <li><a href="#work">Capabilities</a></li>
-        <li><a href="#pod">Principals</a></li>
-        <li><a href="#engage">Engage</a></li>
-        <li><a href="#selects">Selects</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:hello@exponent.studio">hello@exponent.studio</a></li>
-        <li><a href="mailto:emma@exponent.studio">emma@exponent.studio</a></li>
-        <li><a href="mailto:ldf@exponent.studio">ldf@exponent.studio</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Elsewhere</h4>
-      <ul>
-        <li><a href="#">x.com/exponent</a></li>
-        <li><a href="#">linkedin/exponent</a></li>
-        <li><a href="#">instagram/exponent</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Index</h4>
-      <ul>
-        <li>est. 2026</li>
-        <li>new york · global</li>
-        <li>est. via aurient + ldf</li>
-        <li>booking q3 2026</li>
-      </ul>
-    </div>
-  </div>
-  <div class="baseline">
-    <span>© 2026 exponent — independent marketing, multiplied.</span>
-    <span>x · ^ · +</span>
-  </div>
-</footer>
 
 </body>
 </html>
