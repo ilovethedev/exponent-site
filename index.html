@@ -103,19 +103,17 @@
   .hero-glow-inner {
     width: 100%; height: 100%;
     background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.55) 18%, rgba(74,61,255,0) 55%);
-    filter: blur(30px);
-    animation: glow-drift 22s ease-in-out infinite;
-    will-change: transform;
+    animation: glow-drift 18s ease-in-out infinite;
+    will-change: transform, filter;
   }
   @keyframes glow-drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    25%  { transform: translate(60px, -40px) scale(1.06); }
-    50%  { transform: translate(-40px, 50px) scale(0.96); }
-    75%  { transform: translate(-70px, -30px) scale(1.04); }
-    100% { transform: translate(0, 0) scale(1); }
+    0%, 100% { transform: translate(0, 0) scale(1);            filter: blur(28px); }
+    25%      { transform: translate(150px, -100px) scale(1.18); filter: blur(40px); }
+    50%      { transform: translate(-110px, 130px) scale(0.84); filter: blur(22px); }
+    75%      { transform: translate(-170px, -80px) scale(1.12); filter: blur(42px); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-glow-inner { animation: none; }
+    .hero-glow-inner, .cta-glow-inner { animation: none; }
   }
 
   .hero-eyebrow {
@@ -646,10 +644,20 @@
     width: 900px; height: 900px;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.4) 18%, rgba(74,61,255,0) 55%);
-    filter: blur(40px);
     pointer-events: none;
     z-index: 0;
+    will-change: transform;
+  }
+  .cta-glow-inner {
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.4) 18%, rgba(74,61,255,0) 55%);
+    animation: glow-drift-slow 26s ease-in-out infinite;
+    will-change: transform, filter;
+  }
+  @keyframes glow-drift-slow {
+    0%, 100% { transform: translate(0, 0) scale(1);            filter: blur(38px); }
+    33%      { transform: translate(-120px, 90px) scale(1.2);  filter: blur(52px); }
+    66%      { transform: translate(140px, -110px) scale(0.82); filter: blur(32px); }
   }
   .cta-section h2 {
     position: relative; z-index: 1;
@@ -994,7 +1002,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 <!-- ────────────────  CTA  ──────────────── -->
 <div class="ascii-rule" aria-hidden="true">+ × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ +</div>
 <section class="cta-section" id="contact">
-  <div class="cta-glow"></div>
+  <div class="cta-glow"><div class="cta-glow-inner"></div></div>
   <div class="ascii-corners" aria-hidden="true">
     <span class="tl">+─────</span>
     <span class="tr">─────+</span>
@@ -1010,34 +1018,47 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 </section>
 
 <script>
-  // Hero glow: smoothed cursor follow layered on top of the ambient CSS drift.
-  // Outer .hero-glow handles the cursor-tracking translate; inner .hero-glow-inner
-  // handles the keyframed drift — separating them avoids transform conflicts.
+  // Aura behavior: each (section, glow) pair gets a JS-driven translate that
+  // lerps toward a cursor target while the inner gradient breathes via CSS
+  // keyframes. Outer = cursor follow, inner = ambient drift — split because
+  // transform can't be animated from both CSS and JS simultaneously.
   (() => {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const hero = document.querySelector('.hero');
-    const glow = document.querySelector('.hero-glow');
-    if (!hero || !glow) return;
 
-    const STRENGTH = 90;   // peak px displacement at the hero's edges
-    const EASE = 0.06;     // per-frame lerp factor (higher = snappier)
-    let tx = 0, ty = 0, cx = 0, cy = 0;
+    const STRENGTH = 170;  // peak px displacement at section edges
+    const EASE = 0.055;    // per-frame lerp factor (higher = snappier)
 
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const nx = (e.clientX - r.left) / r.width - 0.5;
-      const ny = (e.clientY - r.top) / r.height - 0.5;
-      tx = nx * STRENGTH * 2;
-      ty = ny * STRENGTH * 2;
-    }, { passive: true });
+    const targets = [
+      ['.hero',         '.hero-glow'],
+      ['.cta-section',  '.cta-glow'],
+    ]
+      .map(([sSel, gSel]) => ({
+        section: document.querySelector(sSel),
+        glow:    document.querySelector(gSel),
+        tx: 0, ty: 0, cx: 0, cy: 0,
+      }))
+      .filter((t) => t.section && t.glow);
 
-    hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+    if (!targets.length) return;
+
+    for (const t of targets) {
+      t.section.addEventListener('pointermove', (e) => {
+        const r = t.section.getBoundingClientRect();
+        const nx = (e.clientX - r.left) / r.width - 0.5;
+        const ny = (e.clientY - r.top) / r.height - 0.5;
+        t.tx = nx * STRENGTH * 2;
+        t.ty = ny * STRENGTH * 2;
+      }, { passive: true });
+      t.section.addEventListener('pointerleave', () => { t.tx = 0; t.ty = 0; });
+    }
 
     const tick = () => {
-      cx += (tx - cx) * EASE;
-      cy += (ty - cy) * EASE;
-      glow.style.transform =
-        `translate(calc(-50% + ${cx.toFixed(1)}px), calc(-50% + ${cy.toFixed(1)}px))`;
+      for (const t of targets) {
+        t.cx += (t.tx - t.cx) * EASE;
+        t.cy += (t.ty - t.cy) * EASE;
+        t.glow.style.transform =
+          `translate(calc(-50% + ${t.cx.toFixed(1)}px), calc(-50% + ${t.cy.toFixed(1)}px))`;
+      }
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
