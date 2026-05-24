@@ -378,14 +378,59 @@
     display: grid; grid-template-columns: 1fr minmax(0, 440px) minmax(0, 440px) 1fr; gap: 40px;
     align-items: stretch;
   }
-  .pod-card {
+  /* Pod card is the link wrapper; the visible chrome lives on .pod-card-face.
+     Hovering flips .pod-card-inner around its Y axis so the back face shows. */
+  a.pod-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    perspective: 1400px;
+    position: relative;
+  }
+  .pod-card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.3, 0.7, 0.3, 1);
+  }
+  .pod-card:hover .pod-card-inner { transform: rotateY(180deg); }
+  .pod-card-face {
     border: 1px solid rgba(246,241,230,0.22);
     padding: 32px 36px 28px;
     display: flex; flex-direction: column; gap: 16px;
     position: relative;
     transition: border-color .2s;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: var(--indigo);  /* opaque so the rotated other face doesn't bleed through */
   }
-  .pod-card:hover { border-color: var(--cream); }
+  .pod-card:hover .pod-card-face { border-color: var(--cream); }
+  .pod-card-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+  }
+  /* Back-face content */
+  .pod-card-back .bio {
+    font-size: 14px;
+    line-height: 1.55;
+    opacity: 0.78;
+    text-wrap: pretty;
+  }
+  .pod-card-back .logos { display: flex; gap: 8px; }
+  .pod-card-back .logo-slot {
+    flex: 1 1 0;
+    height: 36px;
+    border: 1px solid rgba(246,241,230,0.18);
+    border-radius: 2px;
+  }
+  .pod-card-back .url-line {
+    margin-top: auto;
+    padding-top: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    opacity: 0.9;
+  }
   .pod-card .corner {
     position: absolute; top: 12px; right: 14px;
     font-family: var(--mono); font-size: 11px;
@@ -769,31 +814,31 @@
     <div class="svc-row">
       <span class="sym">+</span>
       <span class="name">Content &amp; editorial</span>
-      <p class="desc">Long&#8209;form essays, technical posts, newsletters, scripts, decks, and social. Written by senior operators who actually understand your category — not outsourced to a content farm.</p>
+      <p class="desc">Long&#8209;form essays, technical posts, newsletters, scripts, decks, and social. Senior operators who understand your project and have a bone to pick with AI slop.</p>
     </div>
 
     <div class="svc-row">
       <span class="sym">×</span>
-      <span class="name">Founder &amp; exec positioning</span>
-      <p class="desc">Distinct lanes for macro vision, operator credibility, and product insight. Podcasts, talks, op&#8209;eds, social, and the unsexy ghostwriting work that makes any of it consistent.</p>
+      <span class="name">Founder &amp; Exec Positioning</span>
+      <p class="desc">Distinct lanes for vision, operator credibility, and product insight. Podcasts, talks, op&#8209;eds, social, and the unsexy work of building consistency. We help you find your voice and have more fun using it.</p>
     </div>
 
     <div class="svc-row">
       <span class="sym">^</span>
-      <span class="name">Partner &amp; product marketing</span>
-      <p class="desc">Integrations and product launches packaged so partners, press, and the market can repeat them back. Co&#8209;marketing systems instead of one&#8209;off announcements.</p>
+      <span class="name">Partner &amp; Product Marketing</span>
+      <p class="desc">Messaging, co&#8209;marketing, partner announcements, product narratives, and launch materials that make value clear and repeatable.</p>
     </div>
 
     <div class="svc-row">
       <span class="sym">+</span>
-      <span class="name">PR coordination</span>
-      <p class="desc">Sourcing, vetting, and managing the right PR partner — and keeping press strategy aligned with the rest of the marketing narrative. PR scoped separately, but never disconnected.</p>
+      <span class="name">PR Coordination</span>
+      <p class="desc">Sourcing and managing the right PR partner while keeping press strategy connected to the broader marketing narrative.</p>
     </div>
 
     <div class="svc-row">
       <span class="sym">×</span>
-      <span class="name">Event marketing &amp; capture</span>
-      <p class="desc">End&#8209;to&#8209;end event runs: campaign content, sponsor deliverables, on&#8209;the&#8209;ground capture, session rollout, recap materials. Built so each event compounds the next.</p>
+      <span class="name">Event Marketing &amp; Capture</span>
+      <p class="desc">Event campaigns, sponsor deliverables, on&#8209;site capture, session rollout, recaps, and post&#8209;event content.</p>
     </div>
 
   </div>
@@ -803,37 +848,69 @@
 <section class="pod" id="pod">
   <div class="sec-head">
     <span class="sec-num">/ 02</span>
-    <span class="sec-label">The Pod</span>
-    <h2 class="sec-title">Two principals. Zero handoffs.</h2>
+    <span></span>
+    <span></span>
   </div>
   <div class="pod-grid">
     <div></div>
 
-    <div class="pod-card">
-      <span class="corner">01 ^</span>
-      <span class="role">Principal</span>
-      <div class="who">Emma Joelle.</div>
+    <a class="pod-card" href="https://www.emmajoelle.com/" target="_blank" rel="noopener">
+      <div class="pod-card-inner">
+        <div class="pod-card-face pod-card-front">
+          <span class="corner">01 ^</span>
+          <span class="role">Principal</span>
+          <div class="who">Emma Joelle.</div>
 <pre class="glyph" aria-hidden="true">      ^
      ^ ^
     ^^^^^
    ^^xxx^^
   <span class="dim">+</span>^xxxxx^<span class="dim">+</span>
  <span class="dim">++</span>xxxxxxx<span class="dim">++</span></pre>
-      <p class="blurb">Strategy, positioning, founder voice. External point of contact for partners and press.</p>
-    </div>
+          <p class="blurb">Strategy, positioning, founder voice. External point of contact for partners and press.</p>
+        </div>
+        <div class="pod-card-face pod-card-back">
+          <span class="corner">↺</span>
+          <span class="role">About</span>
+          <p class="bio">[Short bio — TK]</p>
+          <div class="logos" aria-hidden="true">
+            <span class="logo-slot"></span>
+            <span class="logo-slot"></span>
+            <span class="logo-slot"></span>
+            <span class="logo-slot"></span>
+          </div>
+          <span class="url-line">emmajoelle.com →</span>
+        </div>
+      </div>
+    </a>
 
-    <div class="pod-card">
-      <span class="corner">02 +</span>
-      <span class="role">Principal</span>
-      <div class="who">LDF.</div>
+    <a class="pod-card" href="https://ldf.bio" target="_blank" rel="noopener">
+      <div class="pod-card-inner">
+        <div class="pod-card-face pod-card-front">
+          <span class="corner">02 +</span>
+          <span class="role">Principal</span>
+          <div class="who">LDF.</div>
 <pre class="glyph" aria-hidden="true">+--+--+--+
 |  |  |  |
 +--+--+--+
 |  |  |  |
 +--+--+--+
 <span class="dim">|  |  |  |</span></pre>
-      <p class="blurb">Production, content systems, partner ops. Drives weekly execution and workflow.</p>
-    </div>
+          <p class="blurb">Production, content systems, partner ops. Drives weekly execution and workflow.</p>
+        </div>
+        <div class="pod-card-face pod-card-back">
+          <span class="corner">↺</span>
+          <span class="role">About</span>
+          <p class="bio">[Short bio — TK]</p>
+          <div class="logos" aria-hidden="true">
+            <span class="logo-slot"></span>
+            <span class="logo-slot"></span>
+            <span class="logo-slot"></span>
+            <span class="logo-slot"></span>
+          </div>
+          <span class="url-line">ldf.bio →</span>
+        </div>
+      </div>
+    </a>
 
     <div></div>
   </div>
@@ -867,13 +944,13 @@
           <span class="med">+</span><span class="dim">───────────────────────────────────────────────────────────────────►</span>
            <span class="dim">month 01</span>      <span class="dim">month 03</span>      <span class="dim">month 06</span>      <span class="dim">month 09</span>      <span class="dim">month 12</span>      <span class="dim">time</span>
 
-           <span class="med">+ + +</span>   foundation     baseline cadence, voice, systems
+           <span class="med">+ + +</span>   foundation     marketing blueprint, systems, kick-off
            <span class="med">x x x</span>   acceleration   launches stack, partners notice, press picks up
-           <span class="lit">^ ^ ^</span>   compounding    each moment makes the next cheaper to make</pre>
+           <span class="lit">^ ^ ^</span>   compounding    lightning captured in the bottle</pre>
     </div>
   </div>
   <p class="curve-caption">
-    The model only works because nothing is starting from zero. Every launch borrows context from the last one. Every essay seeds the next campaign. The exponent is the team you don't have to brief again.
+    An industrious marketing team working in lockstep towards business goals can have expotential effects. Each launch carries context forward. Content seeds future campaigns. Partner marketing builds the operating system
   </p>
 </section>
 
