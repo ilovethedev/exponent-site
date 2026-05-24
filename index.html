@@ -336,6 +336,21 @@
     padding-top: 8px;
   }
 
+  /* Inverted color scheme — cream bg, indigo ink — for the services section. */
+  .services {
+    background: var(--cream);
+    color: var(--indigo);
+    border-top: 0;
+  }
+  .services .sec-title,
+  .services .svc-row .sym,
+  .services .svc-row .name,
+  .services .svc-row .desc,
+  .services .svc-row .tag { color: var(--indigo); }
+  .services .svc-row { border-top-color: rgba(10,5,48,0.14); }
+  .services .svc-row:last-child { border-bottom-color: rgba(10,5,48,0.14); }
+  .services .svc-row:hover { background: rgba(10,5,48,0.04); }
+
   /* ──────── POD ──────── */
   .pod {
     border-top: 1px solid rgba(246,241,230,0.18);
