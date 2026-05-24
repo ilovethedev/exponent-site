@@ -641,7 +641,7 @@
   }
   .cta-glow {
     position: absolute;
-    width: 900px; height: 900px;
+    width: 1200px; height: 1200px;
     left: 50%; top: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
@@ -650,14 +650,14 @@
   }
   .cta-glow-inner {
     width: 100%; height: 100%;
-    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.4) 18%, rgba(74,61,255,0) 55%);
+    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.65) 20%, rgba(74,61,255,0) 58%);
     animation: glow-drift-slow 26s ease-in-out infinite;
     will-change: transform, filter;
   }
   @keyframes glow-drift-slow {
-    0%, 100% { transform: translate(0, 0) scale(1);            filter: blur(38px); }
-    33%      { transform: translate(-120px, 90px) scale(1.2);  filter: blur(52px); }
-    66%      { transform: translate(140px, -110px) scale(0.82); filter: blur(32px); }
+    0%, 100% { transform: translate(0, 0) scale(1);              filter: blur(24px); }
+    33%      { transform: translate(-190px, 130px) scale(1.22);  filter: blur(40px); }
+    66%      { transform: translate(180px, -150px) scale(0.82);  filter: blur(20px); }
   }
   .cta-section h2 {
     position: relative; z-index: 1;
