@@ -482,6 +482,35 @@
   pre.ascii-art .dim { opacity: 0.32; }
   pre.ascii-art .med { opacity: 0.6; }
   pre.ascii-art .lit { opacity: 0.95; }
+
+  /* Shimmer: oscillate the dim/med/lit opacity on different prime-ish periods
+     so the three shading layers drift out of phase. nth-of-type adds a
+     per-span phase offset on the big chart so chunks twinkle independently
+     rather than all classes pulsing in lockstep. */
+  @keyframes ascii-shimmer-lit { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.55; } }
+  @keyframes ascii-shimmer-med { 0%, 100% { opacity: 0.6; }  50% { opacity: 0.9;  } }
+  @keyframes ascii-shimmer-dim { 0%, 100% { opacity: 0.32; } 50% { opacity: 0.6;  } }
+  @keyframes ascii-shimmer-lit-hero { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+  @keyframes ascii-shimmer-med-hero { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+
+  pre.ascii-art .lit { animation: ascii-shimmer-lit 4.3s ease-in-out infinite; will-change: opacity; }
+  pre.ascii-art .med { animation: ascii-shimmer-med 6.1s ease-in-out infinite; will-change: opacity; }
+  pre.ascii-art .dim { animation: ascii-shimmer-dim 5.7s ease-in-out infinite; will-change: opacity; }
+
+  pre.ascii-art span:nth-of-type(2n) { animation-delay: -1.4s; }
+  pre.ascii-art span:nth-of-type(3n) { animation-delay: -2.8s; }
+  pre.ascii-art span:nth-of-type(5n) { animation-delay: -4.1s; }
+  pre.ascii-art span:nth-of-type(7n) { animation-delay: -1.9s; }
+
+  .ascii-curve .lit { animation: ascii-shimmer-lit-hero 4.7s ease-in-out infinite; will-change: opacity; }
+  .ascii-curve .med { animation: ascii-shimmer-med-hero 6.3s ease-in-out infinite; will-change: opacity; }
+  .ascii-curve span:nth-of-type(2n) { animation-delay: -1.8s; }
+  .ascii-curve span:nth-of-type(3n) { animation-delay: -3.2s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    pre.ascii-art .lit, pre.ascii-art .med, pre.ascii-art .dim,
+    .ascii-curve .lit, .ascii-curve .med { animation: none; }
+  }
   .curve-caption {
     margin-top: 40px;
     padding-left: 120px;
