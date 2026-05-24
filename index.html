@@ -734,19 +734,6 @@
     opacity: 0.9;
   }
 
-  /* ──────── PLAY/PAUSE BUTTON (decorative) ──────── */
-  .pause-fab {
-    position: fixed; right: 28px; bottom: 28px; z-index: 60;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(10,5,48,0.55);
-    border: 1px solid rgba(246,241,230,0.35);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    color: var(--cream);
-    backdrop-filter: blur(8px);
-  }
-  .pause-fab:hover { background: var(--cream); color: var(--indigo); }
-
   /* ──────── RESPONSIVE ──────── */
   @media (max-width: 900px) {
     .wrap, nav.top, .sec-head, .manifesto-body, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section, footer { padding-left: 24px; padding-right: 24px; }
@@ -765,7 +752,7 @@
 <body>
 
 <!-- ────────────────  NAV  ──────────────── -->
-<nav class="top" data-screen-label="Nav">
+<nav class="top">
   <a class="brand" href="#top">exponent<sup>^</sup></a>
   <ul>
     <li><a href="#work">work</a></li>
@@ -777,7 +764,7 @@
 </nav>
 
 <!-- ────────────────  HERO  ──────────────── -->
-<section class="hero" id="top" data-screen-label="Hero">
+<section class="hero" id="top">
   <div class="hero-glow"></div>
 
   <pre class="ascii-curve" aria-hidden="true"><span class="lit">                                       ^</span>
@@ -988,7 +975,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 </section>
 
 <!-- ────────────────  TRUSTED BY  ──────────────── -->
-<section class="trusted" id="selects" data-screen-label="Trusted by">
+<section class="trusted" id="selects">
   <div class="sec-head">
     <span class="sec-num">/ 05</span>
     <span class="sec-label">Trusted by</span>
@@ -1050,7 +1037,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 
 <!-- ────────────────  CTA  ──────────────── -->
 <div class="ascii-rule" aria-hidden="true">+ × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ +</div>
-<section class="cta-section" id="contact" data-screen-label="CTA">
+<section class="cta-section" id="contact">
   <div class="cta-glow"></div>
   <div class="ascii-corners" aria-hidden="true">
     <span class="tl">+─────</span>
@@ -1113,129 +1100,6 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
     <span>x · ^ · +</span>
   </div>
 </footer>
-
-<div class="pause-fab" id="pauseFab" title="pause animations" aria-label="pause">
-  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-    <rect x="3" y="2" width="3" height="12" rx="0.5"/>
-    <rect x="10" y="2" width="3" height="12" rx="0.5"/>
-  </svg>
-</div>
-
-<!-- Tweaks defaults block -->
-<script>
-  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "wordmark": "exponent^∞",
-    "palette": ["#2a1ff5", "#f6f1e6", "#ffd9b8"],
-    "accentMode": "warm-glow",
-    "showAsciiCurve": true,
-    "heroEmphasis": "italic-serif",
-    "density": "regular"
-  }/*EDITMODE-END*/;
-</script>
-
-<!-- React + Babel for Tweaks panel -->
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-
-<div id="tweaks-root"></div>
-
-<script type="text/babel">
-  const PALETTES = {
-    "indigo-cream": ["#2a1ff5", "#f6f1e6", "#ffd9b8"],
-    "ink-cream":    ["#0a0530", "#f6f1e6", "#ffb38a"],
-    "violet-glow":  ["#5b3bff", "#fbf3e0", "#ffd0b3"],
-    "cream-indigo": ["#f6f1e6", "#2a1ff5", "#2a1ff5"]
-  };
-
-  function applyTweaks(t) {
-    const r = document.documentElement;
-    const [bg, fg, glow] = t.palette || PALETTES["indigo-cream"];
-    r.style.setProperty("--indigo", bg);
-    r.style.setProperty("--cream", fg);
-    r.style.setProperty("--glow", glow);
-
-    // wordmark variant
-    const wm = document.querySelector(".wordmark");
-    if (wm) {
-      const variants = {
-        "exponent^∞": ['exponent', '^', '∞'],
-        "exponent^x": ['exponent', '^', 'x'],
-        "exponent^n": ['exponent', '^', 'n'],
-        "e^xponent":  ['e', '^', 'xponent'],
-        "x^+":        ['x', '^', '+'],
-      };
-      const v = variants[t.wordmark] || variants["exponent^∞"];
-      wm.innerHTML = `<span class="word">${v[0]}</span><span class="exp">${v[1]}<span class="infty">${v[2]}</span></span>`;
-    }
-
-    // ascii curve toggle
-    const curve = document.querySelector(".ascii-curve");
-    if (curve) curve.style.display = t.showAsciiCurve ? "" : "none";
-
-    // hero emphasis
-    const lede = document.querySelector(".hero-lede");
-    if (lede) {
-      if (t.heroEmphasis === "italic-serif") {
-        lede.style.fontFamily = "var(--serif)";
-        lede.style.fontStyle = "italic";
-      } else if (t.heroEmphasis === "mono") {
-        lede.style.fontFamily = "var(--mono)";
-        lede.style.fontStyle = "normal";
-        lede.style.fontSize = "20px";
-        lede.style.lineHeight = "1.45";
-      } else {
-        lede.style.fontFamily = "var(--sans)";
-        lede.style.fontStyle = "normal";
-      }
-    }
-
-    // density
-    document.body.style.fontSize = t.density === "compact" ? "15px" : t.density === "comfy" ? "17px" : "16px";
-  }
-
-  function App() {
-    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
-    React.useEffect(() => { applyTweaks(t); }, [t]);
-
-    return (
-      <TweaksPanel title="Tweaks" defaultOpen={false}>
-        <TweakSection label="Wordmark" />
-        <TweakSelect label="Style" value={t.wordmark}
-          options={["exponent^∞", "exponent^x", "exponent^n", "e^xponent", "x^+"]}
-          onChange={(v) => setTweak('wordmark', v)} />
-        <TweakRadio label="Hero lede" value={t.heroEmphasis}
-          options={["italic-serif", "sans", "mono"]}
-          onChange={(v) => setTweak('heroEmphasis', v)} />
-
-        <TweakSection label="Palette" />
-        <TweakColor label="Scheme" value={t.palette}
-          options={[
-            ["#2a1ff5", "#f6f1e6", "#ffd9b8"],
-            ["#0a0530", "#f6f1e6", "#ffb38a"],
-            ["#5b3bff", "#fbf3e0", "#ffd0b3"],
-            ["#f6f1e6", "#2a1ff5", "#2a1ff5"],
-          ]}
-          onChange={(v) => setTweak('palette', v)} />
-
-        <TweakSection label="Detail" />
-        <TweakToggle label="ASCII curve in hero" value={t.showAsciiCurve}
-          onChange={(v) => setTweak('showAsciiCurve', v)} />
-        <TweakRadio label="Density" value={t.density}
-          options={["compact", "regular", "comfy"]}
-          onChange={(v) => setTweak('density', v)} />
-      </TweaksPanel>
-    );
-  }
-
-  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
-
-  // initial apply on load (so static wordmark gets variant)
-  document.addEventListener("DOMContentLoaded", () => applyTweaks(TWEAK_DEFAULTS));
-  // also call immediately, since DOMContentLoaded may have already fired
-  applyTweaks(TWEAK_DEFAULTS);
-</script>
 
 </body>
 </html>
