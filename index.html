@@ -116,19 +116,6 @@
     .hero-glow-inner, .cta-glow-inner { animation: none; }
   }
 
-  .hero-eyebrow {
-    font-family: var(--mono);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-transform: lowercase;
-    color: var(--cream);
-    opacity: 0.85;
-    display: flex; align-items: center; gap: 14px;
-    position: relative; z-index: 2;
-  }
-  .hero-eyebrow .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--cream); }
-  .hero-eyebrow .sep { opacity: 0.4; }
-
   .wordmark {
     font-family: var(--serif);
     font-style: italic;
@@ -205,22 +192,6 @@
   }
   .ascii-curve .lit { opacity: 1; }
   .ascii-curve .med { opacity: 0.7; }
-
-  /* ASCII symbol field watermark for manifesto */
-  .ascii-field {
-    position: absolute;
-    inset: 0;
-    font-family: var(--mono);
-    font-size: 12px;
-    line-height: 1.6;
-    color: var(--cream);
-    opacity: 0.06;
-    white-space: pre;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-    user-select: none;
-  }
 
   /* Pod card ASCII glyph */
   .pod-card .glyph {
@@ -300,39 +271,6 @@
     letter-spacing: -0.02em;
     color: var(--cream);
     text-wrap: balance;
-  }
-
-  /* ──────── MANIFESTO ──────── */
-  .manifesto {
-    border-top: 1px solid rgba(246,241,230,0.18);
-    padding: 80px 0 140px;
-    position: relative;
-    overflow: hidden;
-  }
-  .manifesto > .sec-head, .manifesto > .manifesto-body { position: relative; z-index: 1; }
-  .manifesto-body {
-    padding: 0 56px;
-    display: grid; grid-template-columns: 80px 1fr 1fr; gap: 40px;
-  }
-  .manifesto-body .lede {
-    grid-column: 2 / 3;
-    font-family: var(--serif);
-    font-size: clamp(36px, 4vw, 60px);
-    line-height: 1.04;
-    letter-spacing: -0.015em;
-    color: var(--cream);
-    text-wrap: pretty;
-  }
-  .manifesto-body .lede em { font-style: italic; opacity: 0.78; }
-  .manifesto-body .lede .x { font-family: var(--mono); font-style: normal; opacity: 0.9; padding: 0 0.1em; }
-  .manifesto-body .side {
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.55;
-    color: var(--cream);
-    opacity: 0.78;
-    align-self: end;
-    max-width: 360px;
   }
 
   /* ──────── SERVICES ──────── */
@@ -701,10 +639,10 @@
 
   /* ──────── RESPONSIVE ──────── */
   @media (max-width: 900px) {
-    .wrap, nav.top, .sec-head, .manifesto-body, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section { padding-left: 24px; padding-right: 24px; }
+    .wrap, nav.top, .sec-head, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section { padding-left: 24px; padding-right: 24px; }
     nav.top ul { display: none; }
     .sec-head { grid-template-columns: 1fr; }
-    .manifesto-body, .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
+    .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
     .svc-row { grid-template-columns: 30px 1fr; }
     .svc-row .desc, .svc-row .tag { grid-column: 1 / -1; }
     .select-row { grid-template-columns: 1fr; gap: 8px; }
@@ -748,53 +686,17 @@
 ++++++++++++++++++
 +++++++++++</pre>
 
-  <div class="hero-eyebrow">
-    <span class="dot"></span>
-    <span>est. 2026 / ny + global</span>
-    <span class="sep">×</span>
-    <span>now booking q3</span>
-  </div>
-
   <h1 class="wordmark">
     <span class="word">exponent</span><span class="exp">^<span class="infty">∞</span></span>
   </h1>
 
   <div class="hero-bottom">
     <p class="hero-lede">
-      An <em>embedded marketing pod.</em> Senior strategy and hands-on execution from a small, high-context team — multiplied across the surface of your business.
+      Exponent brings senior marketing leadership and execution to emerging teams, replacing the need for a full internal team or outside agency. One embedded pod covers the scope of a fractional CMO, content shop, ghostwriter, and comms freelancer.
     </p>
     <div class="hero-meta">
       <div class="row"><span>founders</span><span>Emma Joelle + LDF</span></div>
-      <div class="row"><span>model</span><span>Embedded pod, monthly retainer</span></div>
       <div class="row"><span>focus</span><span>AI · crypto · culture · climate</span></div>
-      <div class="row"><span>scope</span><span>Strategy → execution, fewer vendors</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ────────────────  MANIFESTO  ──────────────── -->
-<div class="ascii-rule" aria-hidden="true">× ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ +</div>
-<section class="manifesto" id="why">
-<pre class="ascii-field" aria-hidden="true">x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ +
-+ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x
-^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^
-x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ +
-+ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x
-^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^
-x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ +
-+ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x
-^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^</pre>
-  <div class="sec-head">
-    <span class="sec-num">/ 01</span>
-    <span class="sec-label">Premise</span>
-    <span></span>
-  </div>
-  <div class="manifesto-body">
-    <p class="lede">
-      Marketing leadership <span class="x">×</span> execution capacity, in one small team. The output of an agency, the context of an in-house hire, the velocity of a founder.
-    </p>
-    <div class="side">
-      <p>Exponent replaces the typical stack of fractional CMO + content shop + ghostwriter + comms freelancer with a single embedded pod. Fewer handoffs. More ownership. Strategy and craft set by the same hands.</p>
     </div>
   </div>
 </section>
@@ -802,7 +704,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 <!-- ────────────────  SERVICES  ──────────────── -->
 <section class="services" id="work">
   <div class="sec-head">
-    <span class="sec-num">/ 02</span>
+    <span class="sec-num">/ 01</span>
     <span class="sec-label">Capabilities</span>
     <h2 class="sec-title">What the pod owns end&#8209;to&#8209;end.</h2>
   </div>
@@ -863,7 +765,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 <!-- ────────────────  POD  ──────────────── -->
 <section class="pod" id="pod">
   <div class="sec-head">
-    <span class="sec-num">/ 03</span>
+    <span class="sec-num">/ 02</span>
     <span class="sec-label">The Pod</span>
     <h2 class="sec-title">Two principals. Zero handoffs.</h2>
   </div>
@@ -903,7 +805,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 <!-- ────────────────  CURVE / ASCII  ──────────────── -->
 <section class="curve-section" id="why-it-works">
   <div class="sec-head">
-    <span class="sec-num">/ 04</span>
+    <span class="sec-num">/ 03</span>
     <span class="sec-label">The Math</span>
     <h2 class="sec-title">Output that compounds.</h2>
   </div>
@@ -941,7 +843,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 <!-- ────────────────  TRUSTED BY  ──────────────── -->
 <section class="trusted" id="selects">
   <div class="sec-head">
-    <span class="sec-num">/ 05</span>
+    <span class="sec-num">/ 04</span>
     <span class="sec-label">Trusted by</span>
     <h2 class="sec-title">We&rsquo;ve worked with companies of all shapes &amp; sizes.</h2>
   </div>
@@ -987,7 +889,7 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
 <!-- ────────────────  ENGAGE  ──────────────── -->
 <section class="engage" id="engage">
   <div class="sec-head">
-    <span class="sec-num">/ 06</span>
+    <span class="sec-num">/ 05</span>
     <span class="sec-label">Engage</span>
     <h2 class="sec-title">If the timing's right.</h2>
   </div>
