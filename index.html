@@ -96,10 +96,26 @@
     width: 1200px; height: 1200px;
     left: 50%; top: 35%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.55) 18%, rgba(74,61,255,0) 55%);
-    filter: blur(30px);
     pointer-events: none;
     z-index: 0;
+    will-change: transform;
+  }
+  .hero-glow-inner {
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.55) 18%, rgba(74,61,255,0) 55%);
+    filter: blur(30px);
+    animation: glow-drift 22s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes glow-drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    25%  { transform: translate(60px, -40px) scale(1.06); }
+    50%  { transform: translate(-40px, 50px) scale(0.96); }
+    75%  { transform: translate(-70px, -30px) scale(1.04); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow-inner { animation: none; }
   }
 
   .hero-eyebrow {
@@ -705,7 +721,7 @@
 
 <!-- ────────────────  HERO  ──────────────── -->
 <section class="hero" id="top">
-  <div class="hero-glow"></div>
+  <div class="hero-glow"><div class="hero-glow-inner"></div></div>
 
   <pre class="ascii-curve" aria-hidden="true"><span class="lit">                                       ^</span>
 <span class="lit">                                     ^^</span>
@@ -992,6 +1008,41 @@ x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x ^ + x 
     <a class="btn-sec" href="#selects">see the work</a>
   </div>
 </section>
+
+<script>
+  // Hero glow: smoothed cursor follow layered on top of the ambient CSS drift.
+  // Outer .hero-glow handles the cursor-tracking translate; inner .hero-glow-inner
+  // handles the keyframed drift — separating them avoids transform conflicts.
+  (() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const hero = document.querySelector('.hero');
+    const glow = document.querySelector('.hero-glow');
+    if (!hero || !glow) return;
+
+    const STRENGTH = 90;   // peak px displacement at the hero's edges
+    const EASE = 0.06;     // per-frame lerp factor (higher = snappier)
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      tx = nx * STRENGTH * 2;
+      ty = ny * STRENGTH * 2;
+    }, { passive: true });
+
+    hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+
+    const tick = () => {
+      cx += (tx - cx) * EASE;
+      cy += (ty - cy) * EASE;
+      glow.style.transform =
+        `translate(calc(-50% + ${cx.toFixed(1)}px), calc(-50% + ${cy.toFixed(1)}px))`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  })();
+</script>
 
 </body>
 </html>

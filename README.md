@@ -4,7 +4,7 @@ Landing page for Exponent — embedded marketing pod by Emma Joelle + LDF.
 
 ## Stack
 
-A single `index.html` file. Pure HTML and CSS, zero JavaScript, zero dependencies, zero build step. All copy, layout, and styling live in that one file — edit it and refresh.
+A single `index.html` file. HTML, CSS, and one tiny inline script (~30 lines) that makes the hero aura follow the cursor. Zero dependencies, zero build step. All copy, layout, and styling live in that one file — edit it and refresh.
 
 ## Edit
 
