@@ -291,25 +291,17 @@
   .svc-grid {
     padding: 0 56px;
   }
-  /* svc-row is a <details>; summary is the always-visible header (sym + name
-     + toggle), and .desc is the disclosed body. Native HTML accordion —
-     keyboard accessible, no JS. */
   .svc-row {
-    border-top: 1px solid rgba(246,241,230,0.14);
-  }
-  .svc-row:last-child { border-bottom: 1px solid rgba(246,241,230,0.14); }
-  .svc-row > summary {
     display: grid;
-    grid-template-columns: 80px 1fr auto;
+    grid-template-columns: 80px 280px 1fr;
     gap: 40px;
     padding: 32px 0;
-    align-items: center;
-    cursor: pointer;
-    list-style: none;
+    border-top: 1px solid rgba(246,241,230,0.14);
+    align-items: start;
     transition: background .2s;
   }
-  .svc-row > summary::-webkit-details-marker { display: none; }
-  .svc-row > summary:hover { background: rgba(246,241,230,0.04); }
+  .svc-row:last-child { border-bottom: 1px solid rgba(246,241,230,0.14); }
+  .svc-row:hover { background: rgba(246,241,230,0.04); }
   .svc-row .sym {
     font-family: var(--mono);
     font-size: 22px;
@@ -325,29 +317,14 @@
     color: var(--cream);
     letter-spacing: -0.01em;
   }
-  .svc-row .toggle {
-    font-family: var(--mono);
-    font-size: 20px;
-    line-height: 1;
-    opacity: 0.5;
-    width: 18px;
-    text-align: center;
-    transition: opacity .15s;
-    user-select: none;
-  }
-  .svc-row[open] .toggle { opacity: 0.9; }
-  .svc-row .toggle::before { content: '+'; }
-  .svc-row[open] .toggle::before { content: '−'; }
-  .svc-row > .desc {
+  .svc-row .desc {
     font-family: var(--sans);
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.5;
     color: var(--cream);
     opacity: 0.78;
-    max-width: 720px;
+    max-width: 520px;
     text-wrap: pretty;
-    padding: 0 0 32px calc(80px + 40px);
-    margin: 0;
   }
   /* Inverted color scheme — cream bg, indigo ink, paper grain. Applied to the
      alternating sections (/01 Capabilities, /03 Math, /05 Engage) so the page
@@ -386,7 +363,7 @@
   .services .svc-row .desc { color: var(--indigo); }
   .services .svc-row { border-top-color: rgba(10,5,48,0.14); }
   .services .svc-row:last-child { border-bottom-color: rgba(10,5,48,0.14); }
-  .services .svc-row > summary:hover { background: rgba(10,5,48,0.04); }
+  .services .svc-row:hover { background: rgba(10,5,48,0.04); }
 
   /* /03 ascii-art + caption */
   .curve-section pre.ascii-art,
@@ -754,8 +731,8 @@
     nav.top ul { display: none; }
     .sec-head { grid-template-columns: 1fr; }
     .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
-    .svc-row > summary { grid-template-columns: 30px 1fr auto; gap: 20px; }
-    .svc-row > .desc { padding-left: 50px; padding-right: 0; }
+    .svc-row { grid-template-columns: 30px 1fr; }
+    .svc-row .desc { grid-column: 1 / -1; }
     .select-row { grid-template-columns: 1fr; gap: 8px; }
     .hero-bottom { grid-template-columns: 1fr; }
     .ascii-curve { display: none; }
@@ -906,68 +883,47 @@
   </div>
   <div class="svc-grid">
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">×</span>
-        <span class="name">Strategy &amp; Positioning</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">×</span>
+      <span class="name">Strategy &amp; Positioning</span>
       <p class="desc">A living marketing strategy tied to business goals, spanning narrative, audience definition, channel planning, founder comms, and operating rhythm.</p>
-    </details>
+    </div>
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">^</span>
-        <span class="name">Campaigns &amp; Launches</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">^</span>
+      <span class="name">Campaigns &amp; Launches</span>
       <p class="desc">Funding announcements, product launches, integrations, data stories, and major company moments designed to capture the lightning in a bottle.</p>
-    </details>
+    </div>
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">+</span>
-        <span class="name">Content &amp; Editorial</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">+</span>
+      <span class="name">Content &amp; Editorial</span>
       <p class="desc">Long&#8209;form essays, technical posts, newsletters, scripts, decks, and social. Written by senior operators who understand your project and have a bone to pick with AI slop.</p>
-    </details>
+    </div>
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">×</span>
-        <span class="name">Founder &amp; Exec Positioning</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">×</span>
+      <span class="name">Founder &amp; Exec Positioning</span>
       <p class="desc">Distinct lanes for vision, operator credibility, and product insight. Podcasts, talks, op&#8209;eds, social, and the unsexy work of building consistency. We help you find your voice and have more fun using it.</p>
-    </details>
+    </div>
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">^</span>
-        <span class="name">Partner &amp; Product Marketing</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">^</span>
+      <span class="name">Partner &amp; Product Marketing</span>
       <p class="desc">Messaging, co&#8209;marketing, partner announcements, product narratives, and launch materials that make value clear and repeatable.</p>
-    </details>
+    </div>
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">+</span>
-        <span class="name">PR Coordination</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">+</span>
+      <span class="name">PR Coordination</span>
       <p class="desc">Sourcing and managing the right PR partner while keeping press strategy connected to the broader marketing narrative.</p>
-    </details>
+    </div>
 
-    <details class="svc-row">
-      <summary>
-        <span class="sym">×</span>
-        <span class="name">Event Marketing &amp; Capture</span>
-        <span class="toggle" aria-hidden="true"></span>
-      </summary>
+    <div class="svc-row">
+      <span class="sym">×</span>
+      <span class="name">Event Marketing &amp; Capture</span>
       <p class="desc">Event campaigns, sponsor deliverables, on&#8209;site capture, session rollout, recaps, and post&#8209;event content.</p>
-    </details>
+    </div>
 
   </div>
 </section>
