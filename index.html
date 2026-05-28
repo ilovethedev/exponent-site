@@ -665,7 +665,7 @@
 
   /* Engage section body + CTA button (sits on cream-inverted bg, so the
      button is indigo with cream ink; inverts on hover.) */
-  .engage-body { grid-column: 2 / -1; max-width: 760px; }
+  .engage-body { grid-column: 2 / 3; max-width: 560px; }
   .engage-body p {
     font-family: var(--serif);
     font-style: italic;
@@ -674,8 +674,9 @@
     text-wrap: pretty;
   }
   .btn-cta {
-    grid-column: 1 / -1;
-    justify-self: start;
+    grid-column: 3 / -1;
+    justify-self: end;
+    align-self: end;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -688,7 +689,6 @@
     color: var(--cream);
     border: 1px solid var(--indigo);
     transition: background .15s, color .15s;
-    margin-top: 32px;
     cursor: pointer;
   }
   .btn-cta:hover { background: transparent; color: var(--indigo); }
@@ -699,6 +699,8 @@
     nav.top ul { display: none; }
     .sec-head { grid-template-columns: 1fr; }
     .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
+    .engage-body, .btn-cta { grid-column: auto; justify-self: start; align-self: auto; }
+    .btn-cta { margin-top: 24px; }
     .svc-row { grid-template-columns: 30px 1fr; }
     .svc-row .desc { grid-column: 1 / -1; }
     .select-row { grid-template-columns: 1fr; gap: 8px; }
@@ -715,7 +717,7 @@
   <ul>
     <li><a href="#selects">selects</a></li>
     <li><a href="#work">work</a></li>
-    <li><a href="#pod">pod</a></li>
+    <li><a href="#pod">team</a></li>
     <li><a href="#engage">engage</a></li>
   </ul>
   <a class="cta" href="#engage">start a conversation →</a>
