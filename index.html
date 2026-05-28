@@ -377,7 +377,12 @@
     transform-style: preserve-3d;
     transition: transform 0.7s cubic-bezier(0.3, 0.7, 0.3, 1);
   }
-  .pod-card:hover .pod-card-inner { transform: rotateY(180deg); }
+  /* Flip only on devices with an actual cursor — prevents the back face
+     getting stuck after a tap on touch. Mobile layout (≤900px) also
+     overrides this to keep the card flat. */
+  @media (hover: hover) and (pointer: fine) {
+    .pod-card:hover .pod-card-inner { transform: rotateY(180deg); }
+  }
   .pod-card-face {
     border: 1px solid rgba(246,241,230,0.22);
     padding: 32px 36px 28px;
@@ -388,7 +393,9 @@
     -webkit-backface-visibility: hidden;
     background: var(--indigo);  /* opaque so the rotated other face doesn't bleed through */
   }
-  .pod-card:hover .pod-card-face { border-color: var(--cream); }
+  @media (hover: hover) and (pointer: fine) {
+    .pod-card:hover .pod-card-face { border-color: var(--cream); }
+  }
   .pod-card-back {
     position: absolute;
     inset: 0;
@@ -695,8 +702,21 @@
 
   /* ──────── RESPONSIVE ──────── */
   @media (max-width: 900px) {
+    /* horizontal padding */
     .wrap, nav.top, .sec-head, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid { padding-left: 24px; padding-right: 24px; }
+
+    /* nav: hide secondary menu and CTA on mobile (P1-3) */
     nav.top ul { display: none; }
+    nav.top .cta { display: none; }
+
+    /* tighter vertical rhythm (P1-4) */
+    section { padding: 48px 0 32px; }
+    .sec-head { margin-bottom: 32px; }
+
+    /* tighter section titles (P1-5) */
+    .sec-title { font-size: clamp(36px, 9vw, 60px); }
+
+    /* layouts collapse to single column */
     .sec-head { grid-template-columns: 1fr; }
     .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
     .engage-body, .btn-cta { grid-column: auto; justify-self: start; align-self: auto; }
@@ -706,6 +726,27 @@
     .select-row { grid-template-columns: 1fr; gap: 8px; }
     .hero-bottom { grid-template-columns: 1fr; }
     .ascii-curve { display: none; }
+
+    /* Pod cards: stop flipping, flow the back face inline below the front
+       so touch users actually see the bio + URL (P0-1). Also drop the
+       empty centering placeholders and tighten the row gap. */
+    .pod-grid { gap: 24px; }
+    .pod-grid > div:empty { display: none; }
+    .pod-card-inner { transform: none !important; }
+    .pod-card-face { backface-visibility: visible; -webkit-backface-visibility: visible; background: transparent; }
+    .pod-card-back { position: static; transform: none; border: 0; padding-top: 4px; padding-bottom: 4px; }
+    .pod-card-back .corner,
+    .pod-card-back .role { display: none; }
+
+    /* Math chart: shrink the monospace so the chart fits viewport (P0-2,
+       implemented as font-size reduction rather than transform: scale to
+       avoid the empty layout box scale would leave). Drop per-span
+       shimmer stagger for perf (P2-8). */
+    pre.ascii-art { font-size: 7px; line-height: 1.05; }
+    pre.ascii-art span { animation-delay: 0s !important; }
+
+    /* Slower marquee on a narrower viewport (P3-9) */
+    .marquee-track { animation-duration: 96s; }
   }
 </style>
 </head>
@@ -720,7 +761,7 @@
     <li><a href="#pod">team</a></li>
     <li><a href="#engage">engage</a></li>
   </ul>
-  <a class="cta" href="#engage">start a conversation →</a>
+  <a class="cta" href="#engage">reach out →</a>
 </nav>
 
 <!-- ────────────────  HERO  ──────────────── -->
@@ -964,7 +1005,7 @@
     <div class="engage-body">
       <p>We work with a small number of teams at a time so each one gets the full pod. Tell us what you're building and we'll come back with a scoped proposal.</p>
     </div>
-    <a class="btn-cta" href="mailto:hello@exponent.studio">start a conversation →</a>
+    <a class="btn-cta" href="mailto:hello@exponent.studio">reach out →</a>
   </div>
 </section>
 
@@ -986,6 +1027,7 @@
         section: document.querySelector(sSel),
         glow:    document.querySelector(gSel),
         tx: 0, ty: 0, cx: 0, cy: 0,
+        visible: false,
       }))
       .filter((t) => t.section && t.glow);
 
@@ -1002,8 +1044,15 @@
       t.section.addEventListener('pointerleave', () => { t.tx = 0; t.ty = 0; });
     }
 
+    // Only run the rAF lerp while at least one target section is on screen.
+    // When everything scrolls away the loop unwinds; IO callback wakes it
+    // back up when the user scrolls a target back into view.
+    let running = false;
     const tick = () => {
+      const anyVisible = targets.some((t) => t.visible);
+      if (!anyVisible) { running = false; return; }
       for (const t of targets) {
+        if (!t.visible) continue;
         t.cx += (t.tx - t.cx) * EASE;
         t.cy += (t.ty - t.cy) * EASE;
         t.glow.style.transform =
@@ -1011,7 +1060,18 @@
       }
       requestAnimationFrame(tick);
     };
-    requestAnimationFrame(tick);
+
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        const t = targets.find((x) => x.section === entry.target);
+        if (t) t.visible = entry.isIntersecting;
+      }
+      if (!running && targets.some((t) => t.visible)) {
+        running = true;
+        requestAnimationFrame(tick);
+      }
+    });
+    for (const t of targets) io.observe(t.section);
   })();
 </script>
 
