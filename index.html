@@ -258,6 +258,16 @@
     color: var(--cream);
     text-wrap: balance;
   }
+  .sec-sub {
+    grid-column: 1;
+    margin-top: 20px;
+    max-width: 760px;
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    opacity: 0.78;
+    text-wrap: pretty;
+  }
 
   /* ──────── SERVICES ──────── */
   .services {
@@ -664,6 +674,8 @@
     text-wrap: pretty;
   }
   .btn-cta {
+    grid-column: 1 / -1;
+    justify-self: start;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -831,8 +843,9 @@
 <!-- ────────────────  SERVICES  ──────────────── -->
 <section class="services" id="work">
   <div class="sec-head">
-    <h2 class="sec-title">What the pod owns end&#8209;to&#8209;end.</h2>
+    <h2 class="sec-title">Areas of Expertise</h2>
     <span class="sec-num">/ 03</span>
+    <p class="sec-sub">We've had our hands in all forms of marketing, and are comfortable setting you up across a bespoke mix of approaches and managing strategy, execution and vendor sourcing like your in-house team.</p>
   </div>
   <div class="svc-grid">
 
@@ -875,7 +888,7 @@
     <div class="svc-row">
       <span class="sym">×</span>
       <span class="name">Event Marketing &amp; Capture</span>
-      <p class="desc">Event campaigns, sponsor deliverables, on&#8209;site capture, session rollout, recaps, and post&#8209;event content.</p>
+      <p class="desc">We've done it all from strategy, production, invitations, programming and analytics, so we get it. Event campaigns, sponsor deliverables, on&#8209;site capture, session rollout, recaps, and post&#8209;event content.</p>
     </div>
 
   </div>
@@ -948,8 +961,8 @@
     <div></div>
     <div class="engage-body">
       <p>We work with a small number of teams at a time so each one gets the full pod. Tell us what you're building and we'll come back with a scoped proposal.</p>
-      <a class="btn-cta" href="mailto:hello@exponent.studio">tell us what you're building →</a>
     </div>
+    <a class="btn-cta" href="mailto:hello@exponent.studio">tell us what you're building →</a>
   </div>
 </section>
 
