@@ -113,7 +113,7 @@
     75%      { transform: translate(-170px, -80px) scale(1.12); filter: blur(42px); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-glow-inner, .cta-glow-inner { animation: none; }
+    .hero-glow-inner { animation: none; }
   }
 
   .wordmark {
@@ -215,27 +215,6 @@
     margin: 4px 0 0;
   }
   .pod-card .glyph .dim { opacity: 0.45; }
-
-  /* ASCII corner brackets for CTA */
-  .ascii-corners {
-    position: absolute;
-    inset: 80px 56px;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .ascii-corners span {
-    position: absolute;
-    font-family: var(--mono);
-    font-size: 18px;
-    color: var(--cream);
-    opacity: 0.55;
-    line-height: 1;
-    white-space: pre;
-  }
-  .ascii-corners .tl { top: 0; left: 0; }
-  .ascii-corners .tr { top: 0; right: 0; }
-  .ascii-corners .bl { bottom: 0; left: 0; }
-  .ascii-corners .br { bottom: 0; right: 0; }
 
   /* Inline ASCII rules between sections */
   .ascii-rule {
@@ -674,77 +653,37 @@
     opacity: 0.55;
   }
 
-  /* ──────── CTA / CONTACT ──────── */
-  .cta-section {
-    border-top: 1px solid rgba(246,241,230,0.18);
-    padding: 120px 56px 100px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-glow {
-    position: absolute;
-    width: 1200px; height: 1200px;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 0;
-    will-change: transform;
-  }
-  .cta-glow-inner {
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, var(--glow) 0%, rgba(255,217,184,0.65) 20%, rgba(74,61,255,0) 58%);
-    animation: glow-drift-slow 26s ease-in-out infinite;
-    will-change: transform, filter;
-  }
-  @keyframes glow-drift-slow {
-    0%, 100% { transform: translate(0, 0) scale(1);              filter: blur(24px); }
-    33%      { transform: translate(-190px, 130px) scale(1.22);  filter: blur(40px); }
-    66%      { transform: translate(180px, -150px) scale(0.82);  filter: blur(20px); }
-  }
-  .cta-section h2 {
-    position: relative; z-index: 1;
+  /* Engage section body + CTA button (sits on cream-inverted bg, so the
+     button is indigo with cream ink; inverts on hover.) */
+  .engage-body { grid-column: 2 / -1; max-width: 760px; }
+  .engage-body p {
     font-family: var(--serif);
     font-style: italic;
-    font-size: clamp(56px, 7vw, 120px);
-    line-height: 0.95;
-    letter-spacing: -0.025em;
-    max-width: 900px;
-    margin: 0 auto 40px;
-    text-wrap: balance;
+    font-size: 28px;
+    line-height: 1.25;
+    text-wrap: pretty;
   }
-  .cta-section .symbols {
-    position: relative; z-index: 1;
-    font-family: var(--mono);
-    font-size: 16px;
-    letter-spacing: 0.6em;
-    opacity: 0.55;
-    margin-bottom: 36px;
-  }
-  .cta-section .btn-row {
-    position: relative; z-index: 1;
-    display: inline-flex; gap: 14px;
+  .btn-cta {
+    display: inline-flex;
     align-items: center;
-  }
-  .btn-prim, .btn-sec {
+    gap: 10px;
     font-family: var(--mono);
     font-size: 13px;
     letter-spacing: 0.06em;
     padding: 16px 28px;
     border-radius: 999px;
-    transition: all .15s;
-    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--indigo);
+    color: var(--cream);
+    border: 1px solid var(--indigo);
+    transition: background .15s, color .15s;
+    margin-top: 32px;
     cursor: pointer;
-    border: 1px solid var(--cream);
   }
-  .btn-prim { background: var(--cream); color: var(--indigo); }
-  .btn-prim:hover { background: transparent; color: var(--cream); }
-  .btn-sec { background: transparent; color: var(--cream); }
-  .btn-sec:hover { background: var(--cream); color: var(--indigo); }
+  .btn-cta:hover { background: transparent; color: var(--indigo); }
 
   /* ──────── RESPONSIVE ──────── */
   @media (max-width: 900px) {
-    .wrap, nav.top, .sec-head, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid, .cta-section { padding-left: 24px; padding-right: 24px; }
+    .wrap, nav.top, .sec-head, .svc-grid, .pod-grid, .curve-wrap, .selects-grid, .engage-grid { padding-left: 24px; padding-right: 24px; }
     nav.top ul { display: none; }
     .sec-head { grid-template-columns: 1fr; }
     .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
@@ -1007,27 +946,10 @@
   </div>
   <div class="engage-grid">
     <div></div>
-    <p style="grid-column: 2 / -1; font-family: var(--serif); font-style: italic; font-size: 28px; line-height: 1.25; max-width: 760px; text-wrap: pretty;">
-      We work with a small number of teams at a time so each one gets the full pod. Tell us what you're building and we'll come back with a scoped proposal.
-    </p>
-  </div>
-</section>
-
-<!-- ────────────────  CTA  ──────────────── -->
-<div class="ascii-rule" aria-hidden="true">+ × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ + × ^ +</div>
-<section class="cta-section" id="contact">
-  <div class="cta-glow"><div class="cta-glow-inner"></div></div>
-  <div class="ascii-corners" aria-hidden="true">
-    <span class="tl">+─────</span>
-    <span class="tr">─────+</span>
-    <span class="bl">+─────</span>
-    <span class="br">─────+</span>
-  </div>
-  <div class="symbols">×&nbsp;&nbsp;^&nbsp;&nbsp;+&nbsp;&nbsp;×&nbsp;&nbsp;^&nbsp;&nbsp;+</div>
-  <h2><em>Tell us what you're building.</em></h2>
-  <div class="btn-row">
-    <a class="btn-prim" href="mailto:hello@exponent.studio">hello@exponent.studio →</a>
-    <a class="btn-sec" href="#selects">see the work</a>
+    <div class="engage-body">
+      <p>We work with a small number of teams at a time so each one gets the full pod. Tell us what you're building and we'll come back with a scoped proposal.</p>
+      <a class="btn-cta" href="mailto:hello@exponent.studio">tell us what you're building →</a>
+    </div>
   </div>
 </section>
 
@@ -1043,8 +965,7 @@
     const EASE = 0.055;    // per-frame lerp factor (higher = snappier)
 
     const targets = [
-      ['.hero',         '.hero-glow'],
-      ['.cta-section',  '.cta-glow'],
+      ['.hero', '.hero-glow'],
     ]
       .map(([sSel, gSel]) => ({
         section: document.querySelector(sSel),
