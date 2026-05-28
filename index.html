@@ -756,11 +756,20 @@
     .pod-grid > div:empty { display: none; }
     .pod-card-inner { transform: none !important; }
     .pod-card-face { backface-visibility: visible; -webkit-backface-visibility: visible; background: transparent; }
-    .pod-card-back { position: static; transform: none; border: 0; padding-top: 4px; padding-bottom: 4px; }
+    /* Front + back share one continuous bordered card on mobile. Front drops
+       its bottom border; back drops its top border; their left/right borders
+       meet to form a single outline around both. */
+    .pod-card-front { border-bottom: 0; padding-bottom: 0; }
+    .pod-card-back {
+      position: static; transform: none;
+      border-top: 0;
+      padding-top: 16px;
+      padding-bottom: 28px;
+    }
     .pod-card-back .corner,
     .pod-card-back .role { display: none; }
-    /* Front-face blurb hidden on mobile — the longer bio below (back face,
-       now flowed inline) already covers the same ground. */
+    /* Front-face blurb hidden on mobile — the longer bio below already
+       covers the same ground. */
     .pod-card-front .blurb { display: none; }
 
     /* Math chart: shrink the monospace so the chart fits viewport (P0-2,
@@ -859,7 +868,7 @@
     </div>
   </div>
   <p class="curve-caption">
-    An industrious marketing team working in lockstep towards business goals can have expotential effects. Each launch carries context forward.
+    An industrious marketing team working in lockstep towards business goals can have expotential effects.
   </p>
 </section>
 
