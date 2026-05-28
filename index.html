@@ -759,6 +759,9 @@
     .pod-card-back { position: static; transform: none; border: 0; padding-top: 4px; padding-bottom: 4px; }
     .pod-card-back .corner,
     .pod-card-back .role { display: none; }
+    /* Front-face blurb hidden on mobile — the longer bio below (back face,
+       now flowed inline) already covers the same ground. */
+    .pod-card-front .blurb { display: none; }
 
     /* Math chart: shrink the monospace so the chart fits viewport (P0-2,
        implemented as font-size reduction rather than transform: scale to
@@ -856,7 +859,7 @@
     </div>
   </div>
   <p class="curve-caption">
-    An industrious marketing team working in lockstep towards business goals can have expotential effects. Each launch carries context forward. Content seeds future campaigns. Partner marketing builds the operating system
+    An industrious marketing team working in lockstep towards business goals can have expotential effects. Each launch carries context forward.
   </p>
 </section>
 
