@@ -721,8 +721,30 @@
     .pod-grid, .curve-wrap, .selects-grid, .engage-grid { grid-template-columns: 1fr; }
     .engage-body, .btn-cta { grid-column: auto; justify-self: start; align-self: auto; }
     .btn-cta { margin-top: 24px; }
-    .svc-row { grid-template-columns: 30px 1fr; }
-    .svc-row .desc { grid-column: 1 / -1; }
+    /* Areas of Expertise: click-to-expand on mobile so the section
+       doesn't take half the page. Rows start collapsed (sym + name
+       only); tapping reveals the description. Desktop unaffected — at
+       >900px both .desc and .svc-row.open are irrelevant. */
+    .svc-row {
+      grid-template-columns: 30px 1fr;
+      cursor: pointer;
+      position: relative;
+      padding-right: 32px;
+    }
+    .svc-row .desc { grid-column: 1 / -1; display: none; }
+    .svc-row.open .desc { display: block; }
+    .svc-row::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      top: 32px;
+      font-family: var(--mono);
+      font-size: 20px;
+      line-height: 1;
+      opacity: 0.5;
+      transition: opacity .15s;
+    }
+    .svc-row.open::after { content: '−'; opacity: 0.9; }
     .select-row { grid-template-columns: 1fr; gap: 8px; }
     .hero-bottom { grid-template-columns: 1fr; }
     .ascii-curve { display: none; }
@@ -1073,6 +1095,13 @@
     });
     for (const t of targets) io.observe(t.section);
   })();
+
+  // Areas of Expertise: tap to expand each row on mobile. Click handler is
+  // always attached — desktop CSS keeps .desc visible regardless of the
+  // .open class, so this is a no-op there.
+  document.querySelectorAll('.svc-row').forEach((row) => {
+    row.addEventListener('click', () => row.classList.toggle('open'));
+  });
 </script>
 
 </body>
